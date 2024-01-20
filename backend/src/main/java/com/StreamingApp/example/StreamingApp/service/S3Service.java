@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class S3Service implements FileService {
     public static final String BUCKET_NAME = "app-log-storage";
-    private final AmazonS3Client aws3Client;
+    public final AmazonS3Client amazonS3Client;
     @Override
     public String uploadFile(MultipartFile file){
 
@@ -26,13 +26,13 @@ public class S3Service implements FileService {
         var metadata=new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         try{
-            aws3Client.putObject(BUCKET_NAME,key,file.getInputStream(),metadata);
+            amazonS3Client.putObject(BUCKET_NAME,key,file.getInputStream(),metadata);
 
         }
         catch (IOException ioException){
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"An Exception occurred while uploading the file");
         }
-        aws3Client.setObjectAcl(BUCKET_NAME,key, CannedAccessControlList.PublicRead);
-        return aws3Client.getResourceUrl(BUCKET_NAME,key);
+        amazonS3Client.setObjectAcl(BUCKET_NAME,key, CannedAccessControlList.PublicRead);
+        return amazonS3Client.getResourceUrl(BUCKET_NAME,key);
     }
 }
