@@ -1,5 +1,6 @@
 package com.StreamingApp.example.StreamingApp.controller;
 
+import com.StreamingApp.example.StreamingApp.dto.VideoDto;
 import com.StreamingApp.example.StreamingApp.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,4 +19,19 @@ public class VideoController {
         videoService.uploadVideo(file);
 
     }
+    @PostMapping("/thumbnail")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void uploadThumbnail(@RequestParam("file")MultipartFile file,@RequestParam("videoId") String videoId){
+
+        videoService.uploadThumbnail(file,videoId);
+
+    }
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public VideoDto editVideoMetaData(@RequestBody VideoDto videoDto)
+    {
+
+        return  videoService.editVideo(videoDto);
+    }
+
 }
