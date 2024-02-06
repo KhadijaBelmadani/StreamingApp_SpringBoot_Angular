@@ -1,8 +1,8 @@
 package com.StreamingApp.example.StreamingApp.service;
 
+import com.StreamingApp.example.StreamingApp.dto.UploadVideoResponse;
 import com.StreamingApp.example.StreamingApp.dto.VideoDto;
 import com.StreamingApp.example.StreamingApp.model.Video;
-import com.StreamingApp.example.StreamingApp.model.VideoStatus;
 import com.StreamingApp.example.StreamingApp.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,12 @@ public class VideoService {
     private final S3Service s3service;
     private final VideoRepository videoRepository;
 
-    public void uploadVideo(MultipartFile multipartFile) {
+    public UploadVideoResponse uploadVideo(MultipartFile multipartFile) {
         String videoUrl = s3service.uploadFile(multipartFile);
         Video video = new Video();
         video.setUrl(videoUrl);
-        videoRepository.save(video);
+        var savedVideo= videoRepository.save(video);
+        return new UploadVideoResponse(savedVideo.getId(),savedVideo.getUrl());
     }
 
     public VideoDto editVideo(VideoDto videoDto) {
@@ -36,11 +37,13 @@ public class VideoService {
         return videoDto;
     }
 
-    public void uploadThumbnail(MultipartFile file, String videoId)
+    public String uploadThumbnail(MultipartFile file, String videoId)
     {
         var savedVideo= getVideoById(videoId);
-        s3service.uploadFile(file);
-
+        String thumbnailUrl= s3service.uploadFile(file);
+        savedVideo.setThumbnailUrl(thumbnailUrl);
+        videoRepository.save(savedVideo);
+        return thumbnailUrl;
     }
     Video getVideoById(String videoId)
     {

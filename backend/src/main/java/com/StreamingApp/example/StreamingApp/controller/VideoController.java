@@ -1,5 +1,6 @@
 package com.StreamingApp.example.StreamingApp.controller;
 
+import com.StreamingApp.example.StreamingApp.dto.UploadVideoResponse;
 import com.StreamingApp.example.StreamingApp.dto.VideoDto;
 import com.StreamingApp.example.StreamingApp.service.VideoService;
 import lombok.RequiredArgsConstructor;
@@ -14,16 +15,16 @@ public class VideoController {
     private final VideoService videoService;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void uploadVideo(@RequestParam("file")MultipartFile file){
+    public UploadVideoResponse uploadVideo(@RequestParam("file")MultipartFile file){
 
-        videoService.uploadVideo(file);
+        return videoService.uploadVideo(file);
 
     }
     @PostMapping("/thumbnail")
     @ResponseStatus(HttpStatus.CREATED)
-    public void uploadThumbnail(@RequestParam("file")MultipartFile file,@RequestParam("videoId") String videoId){
+    public String uploadThumbnail(@RequestParam("file")MultipartFile file,@RequestParam("videoId") String videoId){
 
-        videoService.uploadThumbnail(file,videoId);
+       return videoService.uploadThumbnail(file,videoId);
 
     }
     @PutMapping
