@@ -1,0 +1,24 @@
+<div class="center">
+  <ngx-file-drop style="width: 50%" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)">
+ <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+      <div>Drag and Drop Videos in this section (or) .</div>
+      <button type="button" (click)="openFileSelector()">Upload file</button>
+    </ng-template>
+  </ngx-file-drop>
+  <div class="upload-table " >
+    <table class="table">
+      <thead>
+      <tr >
+        <th class="coll">Name</th>
+      </tr>
+      </thead>
+      <tbody class="upload-name-style">
+      <tr *ngFor="let item of files; let i=index">
+        <td class="coll"><strong>{{ item.relativePath }}</strong></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <button  class="btn btn text-white bg_red rounded-0 border-0" type="button" (click)="uploadVideo()" *ngIf="fileUploaded">Upload Video</button>
+</div>
+

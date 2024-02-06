@@ -1,7 +1,8 @@
+<div style="height: 40px"></div>
 <div class="text-white" fxLayout="row wrap">
-  <div fxFlex="20%">hi</div>
+  <div fxFlex="10%"></div>
   <div fxFlex="30%">
-    <div class="mat-title"> Add video metaData</div>
+    <div class="mat-title"> Add video metaData</div> <br>
     <form [formGroup]="saveVideoDetailsForm">
 
 
@@ -20,10 +21,12 @@
         <mat-option value="PRIVATE">PRIVATE</mat-option>
       </mat-select>
     </mat-form-field >
-  <button type="submit" mat-raised-button color="warn"> Submit</button>
+      <div>
+        <button type="submit" mat-raised-button color="warn"> Save</button>
+
+      </div>
     </form>
   </div>
-  <div fxFlex="20%">
-    hello
-  </div>
+  <div fxFlex="30%">Video Player</div>
+
 </div>
