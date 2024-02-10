@@ -26,6 +26,7 @@ export class SaveVideoDetailsComponent {
   selectedFileName='';
   videoId='';
   fileSelected=false;
+  videoUrl!:string;
 
   announcer = inject(LiveAnnouncer);
 
@@ -33,6 +34,9 @@ export class SaveVideoDetailsComponent {
               private matSnackBar:MatSnackBar) {
     // @ts-ignore
     this.videoId= this.activatedRoute.snapshot.params.videoId ;
+    this.videoService.getVideo(this.videoId).subscribe(data=>{
+       this.videoUrl =data.url;
+    });
     this.saveVideoDetailsForm=new FormGroup({
       title:this.title,
       description:this.description,

@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class VideoController {
     private final VideoService videoService;
+
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UploadVideoResponse uploadVideo(@RequestParam("file")MultipartFile file){
@@ -20,6 +22,8 @@ public class VideoController {
         return videoService.uploadVideo(file);
 
     }
+
+
     @PostMapping("/thumbnail")
     @ResponseStatus(HttpStatus.CREATED)
     public String uploadThumbnail(@RequestParam("file")MultipartFile file,@RequestParam("videoId") String videoId){
@@ -27,12 +31,20 @@ public class VideoController {
        return videoService.uploadThumbnail(file,videoId);
 
     }
+
+
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public VideoDto editVideoMetaData(@RequestBody VideoDto videoDto)
     {
 
         return  videoService.editVideo(videoDto);
+    }
+
+    @GetMapping("/{videoId}")
+    @ResponseStatus(HttpStatus.OK)
+    public VideoDto getVideoDetails(@PathVariable String videoId){
+      return   videoService.getVideoDetails(videoId);
     }
 
 }
