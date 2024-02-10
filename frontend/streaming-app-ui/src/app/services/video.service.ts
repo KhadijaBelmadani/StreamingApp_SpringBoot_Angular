@@ -16,6 +16,14 @@ export class VideoService {
     return this.httpClient.post<UploadVideoResponse>("http://localhost:8080/api/videos",formData) ;
 
   }
+  uploadThumbnail(fileEntry: File,videoId:string):Observable<string> {
+    const formData = new FormData();
+    formData.append("file", fileEntry, fileEntry.name);
+    formData.append('videoId',videoId);
+    return this.httpClient.post("http://localhost:8080/api/videos/thumbnail",formData,{
+    responseType:'text'
+
+  });
     // return fileEntry.file((file => {
     //   const userId = this.authService.getUserId();
     //
@@ -25,4 +33,4 @@ export class VideoService {
     //       headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('access_token'))
     //     });
     // }))
-}
+}}

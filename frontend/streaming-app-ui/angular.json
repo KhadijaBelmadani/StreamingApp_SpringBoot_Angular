@@ -26,6 +26,8 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/@videogular/ngx-videogular/fonts/videogular.css",
+
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],

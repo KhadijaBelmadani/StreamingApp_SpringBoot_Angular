@@ -18,6 +18,14 @@ import { SaveVideoDetailsComponent } from './save-video-details/save-video-detai
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {VgCoreModule} from "@videogular/ngx-videogular/core";
+import {VgBufferingModule} from "@videogular/ngx-videogular/buffering";
+import {VgOverlayPlayModule} from "@videogular/ngx-videogular/overlay-play";
+import {VgControlsModule} from "@videogular/ngx-videogular/controls";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import { VideoPlayerComponent } from './video-player/video-player.component';
 
 
 @NgModule({
@@ -27,6 +35,7 @@ import {MatSelectModule} from "@angular/material/select";
     HeaderComponent,
     FooterComponent,
     SaveVideoDetailsComponent,
+    VideoPlayerComponent,
 
   ],
   imports: [
@@ -44,6 +53,13 @@ import {MatSelectModule} from "@angular/material/select";
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule,
+    MatSnackBarModule
 
   ],
   providers: [],

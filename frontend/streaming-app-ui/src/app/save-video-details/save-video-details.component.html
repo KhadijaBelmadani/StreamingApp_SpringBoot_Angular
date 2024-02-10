@@ -1,8 +1,8 @@
 <div style="height: 40px"></div>
 <div class="text-white" fxLayout="row wrap">
-  <div fxFlex="10%"></div>
+  <div fxFlex="20%"></div>
   <div fxFlex="30%">
-    <div class="mat-title"> Add video metaData</div> <br>
+    <div class="mat-title" style="font-size: x-large"> Add video metaData</div> <br>
     <form [formGroup]="saveVideoDetailsForm">
 
 
@@ -21,12 +21,48 @@
         <mat-option value="PRIVATE">PRIVATE</mat-option>
       </mat-select>
     </mat-form-field >
-      <div>
-        <button type="submit" mat-raised-button color="warn"> Save</button>
+      <mat-form-field color="warn" class="example-chip-list">
+        <mat-label>tags</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter fruits">
+          <mat-chip-row *ngFor="let tag of tags"
+                        (removed)="remove(tag)">{{tag}}
 
+
+            <button matChipRemove [attr.aria-label]="'remove ' + tag">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          <input placeholder="Add tag..."
+                 [matChipInputFor]="chipGrid"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)"/>
+        </mat-chip-grid>
+      </mat-form-field>
+
+
+      <div>
+        <label for="inputGroupFile01">Upload Thumbnail:
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile01"
+                   aria-describedby="inputGroupFileAddon01" (change)="onFileSelected($event)" >
+          </div>
+          <br/>
+          <div *ngIf="fileSelected">
+            <div >
+              <p>Selected File: {{selectedFileName}} </p>
+            </div>
+            <div *ngIf="fileSelected">
+              <button mat-raised-button color="warn" type="submit" (click)="onUpload()" >Upload</button>
+            </div>
+          </div>
+
+        </label>
       </div>
+      <hr>
+      <button type="submit" mat-raised-button color="warn" >Save</button>
     </form>
   </div>
-  <div fxFlex="30%">Video Player</div>
+  <div fxFlex="30%" class="mat-title" style="font-size: x-large">Video Player</div>
 
 </div>
