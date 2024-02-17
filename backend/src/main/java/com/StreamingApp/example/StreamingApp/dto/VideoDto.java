@@ -1,14 +1,15 @@
 package com.StreamingApp.example.StreamingApp.dto;
 
 import com.StreamingApp.example.StreamingApp.model.VideoStatus;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class VideoDto {
     private String id;
 //    private String userId;

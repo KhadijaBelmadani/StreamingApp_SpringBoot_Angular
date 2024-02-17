@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgxFileDropModule} from "ngx-file-drop";
 import { UploadVideoComponent } from './upload-video/upload-video.component';
@@ -26,6 +26,9 @@ import {VgOverlayPlayModule} from "@videogular/ngx-videogular/overlay-play";
 import {VgControlsModule} from "@videogular/ngx-videogular/controls";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import { VideoPlayerComponent } from './video-player/video-player.component';
+import { AuthConfigModule } from './auth/auth-config.module';
+import {AuthInterceptor} from "angular-auth-oidc-client";
+import { VideoDetailComponent } from './video-detail/video-detail.component';
 
 
 @NgModule({
@@ -36,6 +39,7 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
     FooterComponent,
     SaveVideoDetailsComponent,
     VideoPlayerComponent,
+    VideoDetailComponent,
 
   ],
   imports: [
@@ -59,10 +63,13 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    AuthConfigModule
 
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,4 @@
-export interface VideoDto
-{
+export interface VideoDto {
   id:string;
   description:string;
   title:string;

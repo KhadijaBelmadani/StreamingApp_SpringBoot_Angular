@@ -6,6 +6,7 @@ import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {ActivatedRoute} from "@angular/router";
 import {VideoService} from "../services/video.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {VideoDto} from "../VideoDto";
 
 @Component({
   selector: 'app-save-video-details',
@@ -27,6 +28,7 @@ export class SaveVideoDetailsComponent {
   videoId='';
   fileSelected=false;
   videoUrl!:string;
+  thumbnailUrl!:string;
 
   announcer = inject(LiveAnnouncer);
 
@@ -36,6 +38,7 @@ export class SaveVideoDetailsComponent {
     this.videoId= this.activatedRoute.snapshot.params.videoId ;
     this.videoService.getVideo(this.videoId).subscribe(data=>{
        this.videoUrl =data.url;
+       this.thumbnailUrl=data.thumbnailUrlL;
     });
     this.saveVideoDetailsForm=new FormGroup({
       title:this.title,
@@ -85,4 +88,23 @@ export class SaveVideoDetailsComponent {
         this.matSnackBar.open("thumbnail Uploaded Successfully","Ok");
       })
   }
+
+  saveVideo() {
+    //Call the video service to make http call to our backend
+    const videoMetaData:VideoDto={
+      "id":this.videoId,
+      "title":this.saveVideoDetailsForm.get('title')?.value,
+      "description":this.saveVideoDetailsForm.get('description')?.value,
+      "tags":this.tags,
+      "videoStatus":this.saveVideoDetailsForm.get('videoStatus')?.value,
+      "url":this.videoUrl,
+      "thumbnailUrlL":this.thumbnailUrl,
+    }
+
+    this.videoService.saveVideo(videoMetaData).subscribe(data=>{
+      this.matSnackBar.open("Video MetaData Updated successfully","OK");
+
+    })
+  }
+
 }

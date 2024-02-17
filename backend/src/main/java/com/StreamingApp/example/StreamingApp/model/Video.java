@@ -2,10 +2,7 @@ package com.StreamingApp.example.StreamingApp.model;
 
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,6 +15,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @NoArgsConstructor
 @Document(value = "Videos")
 @Builder
+@Getter
+@Setter
 public class Video {
 
     private String id;

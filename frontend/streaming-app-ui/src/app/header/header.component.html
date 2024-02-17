@@ -20,9 +20,13 @@
       <button mat-mini-fab color="warn" class="angular_icon" aria-label="Example icon-button with heart icon">
         <mat-icon>video_call</mat-icon>
       </button>&nbsp;&nbsp;&nbsp;&nbsp;
-      <button mat-mini-fab color="warn" class="angular_icon" aria-label="Example icon-button with share icon">
+      <button *ngIf="isAuthenticated;else noAuth" mat-mini-fab color="warn" class="angular_icon" aria-label="Example icon-button with share icon">
         <mat-icon>account_circle</mat-icon>
       </button>
+      <ng-template #noAuth>
+        <button mat-raised-button color="warn" (click)="login()">login</button>
+      </ng-template>
+
     </div>
 
   </nav>

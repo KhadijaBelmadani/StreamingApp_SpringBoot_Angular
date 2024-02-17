@@ -59,11 +59,11 @@
 
         </label>
       </div>
-
-      <button type="submit" mat-raised-button color="warn" >Save</button>
+<br>
+      <button type="submit" mat-raised-button color="warn" (click)="saveVideo()" >Save</button>
     </form>
   </div>
-  <div fxFlex="30%" >
+  <div fxFlex="40%" >
 
 <app-video-player [videoUrl]="videoUrl"></app-video-player>  </div>
 
