@@ -10,6 +10,10 @@ import {VideoService} from "../services/video.service";
 export class VideoDetailComponent implements OnInit{
   videoId!: string;
   videoUrl!: string;
+  videoAvailable: boolean=false;
+  videoTitle!: string;
+  videoDescription!: string;
+  videoTags: Array<string>=[];
 
 
 constructor(private activatedRoute: ActivatedRoute,
@@ -19,6 +23,11 @@ constructor(private activatedRoute: ActivatedRoute,
   this.videoId= this.activatedRoute.snapshot.params.videoId ;
   this.videoService.getVideo(this.videoId).subscribe(data=>{
     this.videoUrl =data.url;
+    this.videoTitle=data.title;
+    this.videoDescription=data.description;
+    this.videoTags=data.tags;
+    this.videoAvailable=true;
+
   });
 
 }
