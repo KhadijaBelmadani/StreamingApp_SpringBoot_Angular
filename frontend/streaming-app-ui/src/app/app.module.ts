@@ -29,6 +29,18 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
 import { AuthConfigModule } from './auth/auth-config.module';
 import {AuthInterceptor} from "angular-auth-oidc-client";
 import { VideoDetailComponent } from './video-detail/video-detail.component';
+import { HomeComponent } from './home/home.component';
+import { HistoryComponent } from './history/history.component';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { LikedVideosComponent } from './liked-videos/liked-videos.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatListModule} from "@angular/material/list";
+import {MatLineModule} from "@angular/material/core";
+import { RecommendationsComponent } from './recommendations/recommendations.component';
+import { FeaturedComponent } from './featured/featured.component';
+import { VideoCardComponent } from './video-card/video-card.component';
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
@@ -40,33 +52,45 @@ import { VideoDetailComponent } from './video-detail/video-detail.component';
     SaveVideoDetailsComponent,
     VideoPlayerComponent,
     VideoDetailComponent,
+    HomeComponent,
+    HistoryComponent,
+    SubscriptionsComponent,
+    LikedVideosComponent,
+    SidebarComponent,
+    RecommendationsComponent,
+    FeaturedComponent,
+    VideoCardComponent,
 
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    NgxFileDropModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    NgbModule,
-    FlexLayoutModule,
-    MatInputModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatChipsModule,
-    MatAutocompleteModule,
-    VgCoreModule,
-    VgControlsModule,
-    VgOverlayPlayModule,
-    VgBufferingModule,
-    MatSnackBarModule,
-    AuthConfigModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        NgxFileDropModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatIconModule,
+        NgbModule,
+        FlexLayoutModule,
+        MatInputModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatChipsModule,
+        MatAutocompleteModule,
+        VgCoreModule,
+        VgControlsModule,
+        VgOverlayPlayModule,
+        VgBufferingModule,
+        MatSnackBarModule,
+        AuthConfigModule,
+        MatSidenavModule,
+        MatListModule,
+        MatLineModule,
+        MatCardModule
 
-  ],
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],

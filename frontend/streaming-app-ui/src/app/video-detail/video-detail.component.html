@@ -1,14 +1,15 @@
 <div fxLayout="row">
   <div fxFlex="65%" class="video-detail">
-<!--    *ngIf="videoAvailable"-->
-    <app-video-player   [videoUrl]="videoUrl"></app-video-player>
-    <div class="mat-title">{{videoTitle}}</div>
+    <app-video-player *ngIf="videoAvailable"  [videoUrl]="videoUrl"></app-video-player>
+    <div class="mat-title text-white" >{{videoTitle}}</div>
   <div fxLayout="row">
-    <div fxFlex="50%">
-      <span>{{videoDescription}}</span>
+    <div fxFlex="50%" class="text-white">
+      <div>{{viewCount}}</div>
+      <div>{{videoDescription}}</div>
     </div>
+
     <div fxFlex="50%">
-gg
+
     </div>
   </div>
   </div>

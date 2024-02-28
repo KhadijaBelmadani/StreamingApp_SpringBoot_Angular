@@ -1,0 +1,13 @@
+.sidenav-container{
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: black;
+  /*width: 100px;*/
+}
+.sideNav-content{
+  margin-left: 15rem;
+  padding: 20px;
+}

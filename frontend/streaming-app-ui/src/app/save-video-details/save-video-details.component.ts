@@ -4,9 +4,9 @@ import {MatChipEditedEvent, MatChipInputEvent} from "@angular/material/chips";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {ActivatedRoute} from "@angular/router";
-import {VideoService} from "../services/video.service";
+import {VideoService} from "../upload-video/video.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {VideoDto} from "../VideoDto";
+import {VideoDto} from "../video-dto";
 
 @Component({
   selector: 'app-save-video-details',
@@ -30,15 +30,18 @@ export class SaveVideoDetailsComponent {
   videoUrl!:string;
   thumbnailUrl!:string;
 
+
   announcer = inject(LiveAnnouncer);
 
   constructor(private activatedRoute:ActivatedRoute,private videoService:VideoService,
               private matSnackBar:MatSnackBar) {
-    // @ts-ignore
-    this.videoId= this.activatedRoute.snapshot.params.videoId ;
+
+
+
+    this.videoId= this.activatedRoute.snapshot.params['videoId'] ;
     this.videoService.getVideo(this.videoId).subscribe(data=>{
        this.videoUrl =data.url;
-       this.thumbnailUrl=data.thumbnailUrlL;
+       this.thumbnailUrl=data.thumbnailUrl;
     });
     this.saveVideoDetailsForm=new FormGroup({
       title:this.title,
@@ -98,7 +101,10 @@ export class SaveVideoDetailsComponent {
       "tags":this.tags,
       "videoStatus":this.saveVideoDetailsForm.get('videoStatus')?.value,
       "url":this.videoUrl,
-      "thumbnailUrlL":this.thumbnailUrl,
+      "thumbnailUrl":this.thumbnailUrl,
+      "likeCount":0,
+      "dislikeCount":0,
+      "viewCount":0,
     }
 
     this.videoService.saveVideo(videoMetaData).subscribe(data=>{

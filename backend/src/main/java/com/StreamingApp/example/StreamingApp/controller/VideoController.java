@@ -9,6 +9,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/videos")
 @RequiredArgsConstructor
@@ -44,7 +47,25 @@ public class VideoController {
     @GetMapping("/{videoId}")
     @ResponseStatus(HttpStatus.OK)
     public VideoDto getVideoDetails(@PathVariable String videoId){
-      return   videoService.getVideoDetails(videoId);
+      return videoService.getVideoDetails(videoId);
     }
 
+    @PostMapping("/{videoId}/like")
+    @ResponseStatus(HttpStatus.OK)
+    public VideoDto likeVideo(@PathVariable String videoId){
+        return videoService.likeVideo(videoId);
+    }
+
+    @PostMapping("/{videoId}/dislike")
+    @ResponseStatus(HttpStatus.OK)
+    public VideoDto dislikeVideo(@PathVariable String videoId){
+        return videoService.dislikeVideo(videoId);
+    }
+
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<VideoDto> getVideoMetaData() {
+        return videoService.getAllVideos();
+    }
 }

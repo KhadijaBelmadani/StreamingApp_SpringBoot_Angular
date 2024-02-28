@@ -8,11 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class VideoService {
     private final S3Service s3service;
     private final VideoRepository videoRepository;
+    private final UserService userService;
 
     public UploadVideoResponse uploadVideo(MultipartFile multipartFile) {
         String videoUrl = s3service.uploadFile(multipartFile);
@@ -29,7 +33,7 @@ public class VideoService {
         savedVideo.setTitle(videoDto.getTitle());
         savedVideo.setDescription(videoDto.getDescription());
         savedVideo.setTags(videoDto.getTags());
-        savedVideo.setThumbnailUrl(videoDto.getThumbnailUrl());
+//        savedVideo.setThumbnailUrl(videoDto.getThumbnailUrl()); // Set the thumbnailUrl
         savedVideo.setVideoStatus(videoDto.getVideoStatus());
 
         // Save the video to DB
@@ -55,8 +59,10 @@ public class VideoService {
     public VideoDto getVideoDetails(String videoId)
     {
         Video savedVideo=getVideoById(videoId);
-
         VideoDto videoDto = new VideoDto();
+        increaseVideoCount(savedVideo);
+        userService.addVideoToHistory(videoId);
+
         videoDto.setUrl(savedVideo.getUrl());
         videoDto.setThumbnailUrl(savedVideo.getThumbnailUrl());
         videoDto.setId(savedVideo.getId());
@@ -64,6 +70,75 @@ public class VideoService {
         videoDto.setDescription(savedVideo.getDescription());
         videoDto.setTags(savedVideo.getTags());
         videoDto.setVideoStatus(savedVideo.getVideoStatus());
+        videoDto.setLikeCount(savedVideo.getLikes().get());
+        videoDto.setDislikeCount(savedVideo.getDisLikes().get());
+        videoDto.setViewCount(savedVideo.getViewCount().get());
         return videoDto;
+    }
+
+    private void increaseVideoCount(Video savedVideo) {
+        savedVideo.incrementViewCount();
+        videoRepository.save(savedVideo);
+    }
+
+    public VideoDto likeVideo(String videoId) {
+
+        Video videoById= getVideoById(videoId);
+
+
+        if (userService.ifLikedVideo(videoId)) {
+            videoById.decrementLikes();
+            userService.removeFromLikedVideos(videoId);
+        } else if (userService.ifDisLikedVideo(videoId)) {
+            videoById.decrementDisLikes();
+            userService.removeFromDisLikedVideos(videoId);
+            videoById.incrementLikes();
+            userService.addToLikedVideos(videoId);
+        }else {
+            videoById.incrementLikes();
+            userService.addToLikedVideos(videoId);
+        }
+        videoRepository.save(videoById);
+        return MapToVideoDto(videoById);
+    }
+
+    public VideoDto dislikeVideo(String videoId) {
+        //Get video by id
+        Video videoById= getVideoById(videoId);
+        if (userService.ifDisLikedVideo(videoId)) {
+            videoById.decrementDisLikes();
+            userService.removeFromDisLikedVideos(videoId);
+        } else if (userService.ifLikedVideo(videoId)) {
+            videoById.decrementLikes();
+            userService.removeFromLikedVideos(videoId);
+            videoById.incrementDisLikes();
+            userService.addToDislikedVideos(videoId);
+        }else {
+            videoById.incrementDisLikes();
+            userService.addToDislikedVideos(videoId);
+        }
+        videoRepository.save(videoById);
+        return MapToVideoDto(videoById);
+    }
+    private VideoDto MapToVideoDto(Video videoById) {
+        VideoDto videoDto = new VideoDto();
+        videoDto.setUrl(videoById.getUrl());
+        videoDto.setThumbnailUrl(videoById.getThumbnailUrl());
+        videoDto.setId(videoById.getId());
+        videoDto.setTitle(videoById.getTitle());
+        videoDto.setDescription(videoById.getDescription());
+        videoDto.setTags(videoById.getTags());
+        videoDto.setVideoStatus(videoById.getVideoStatus());
+        videoDto.setLikeCount(videoById.getLikes().get());
+        videoDto.setDislikeCount(videoById.getDisLikes().get());
+        videoDto.setViewCount(videoById.getViewCount().get());
+        return videoDto;
+    }
+
+    public List<VideoDto> getAllVideos() {
+        List<Video> allVideos = videoRepository.findAll();
+        return allVideos.stream()
+                .map(this::MapToVideoDto)
+                .collect(Collectors.toList());
     }
 }

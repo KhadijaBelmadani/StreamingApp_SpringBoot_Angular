@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {VideoService} from "../services/video.service";
+import {VideoService} from "../upload-video/video.service";
+
 
 @Component({
   selector: 'app-video-detail',
@@ -14,19 +15,27 @@ export class VideoDetailComponent implements OnInit{
   videoTitle!: string;
   videoDescription!: string;
   videoTags: Array<string>=[];
+  likeCount: number=0;
+  dislikeCount: number=0;
+  viewCount: number=0;
+
+
 
 
 constructor(private activatedRoute: ActivatedRoute,
             private videoService:VideoService ) {
 
-  // @ts-ignore
-  this.videoId= this.activatedRoute.snapshot.params.videoId ;
+  this.videoId= this.activatedRoute.snapshot.params['videoId'] ;
   this.videoService.getVideo(this.videoId).subscribe(data=>{
+    console.log('Video Data:', data);
     this.videoUrl =data.url;
     this.videoTitle=data.title;
     this.videoDescription=data.description;
     this.videoTags=data.tags;
     this.videoAvailable=true;
+    this.likeCount=data.likeCount;
+    this.dislikeCount=data.dislikeCount;
+    this.viewCount=data.viewCount;
 
   });
 
@@ -34,4 +43,5 @@ constructor(private activatedRoute: ActivatedRoute,
 
   ngOnInit(): void {
   }
+
 }

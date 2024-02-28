@@ -35,36 +35,23 @@ public class Video {
     private String thumbnailUrl;
     private List<Comment> comments = new ArrayList<>();
 
-    public int likeCount() {
-        return likes.get();
-    }
-
-    public int disLikeCount() {
-        return disLikes.get();
-    }
-
-    public void increaseViewCount() {
-        viewCount.incrementAndGet();
-    }
-
-    public void increaseLikeCount() {
+    public void incrementLikes(){
         likes.incrementAndGet();
     }
 
-    public void decreaseLikeCount() {
-        likes.decrementAndGet();
-    }
+    public void decrementLikes(){likes.decrementAndGet();}
 
-    public void increaseDisLikeCount() {
+    public void incrementDisLikes(){
         disLikes.incrementAndGet();
     }
 
-    public void decreaseDisLikeCount() {
+    public void decrementDisLikes(){
         disLikes.decrementAndGet();
     }
 
-    public void addComment(Comment comment) {
-        comments.add(comment);
+
+    public void incrementViewCount() {
+        viewCount.incrementAndGet();
     }
 }
 

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FileSystemFileEntry, NgxFileDropEntry} from "ngx-file-drop";
 // import {VideoService} from "./video.service";
 import {Router} from "@angular/router";
-import {VideoService} from "../services/video.service";
+import {VideoService} from "./video.service";
 
 @Component({
   selector: 'app-upload-video',
@@ -35,7 +35,8 @@ export class UploadVideoComponent {
       console.log(this.fileEntry)
       this.fileEntry.file(file => {
         this.videoService.uploadVideo(file).subscribe(data =>{
-          this.router.navigateByUrl("/save-video-details/" +data.videoId);
+          console.log(data.videoId)
+          this.router.navigateByUrl("/save-video-details/" + data.videoId);
         })
   })
 }

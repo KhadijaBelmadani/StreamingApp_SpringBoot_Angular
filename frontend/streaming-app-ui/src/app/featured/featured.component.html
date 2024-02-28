@@ -1,0 +1,32 @@
+<div fxLayout="row wrap" fxLayoutAlign="space-between center">
+  <h3>Featured Videos</h3>
+  <button  mat-stroked-button color="warn">View All</button>
+</div>
+
+<div fxLayout="row wrap" fxLayoutGap="12px grid">
+  <div *ngFor="let featuredVideo of featuredVideos ">
+    <app-video-card [video]="featuredVideo"></app-video-card>
+  </div>
+</div>
+<!--<br>-->
+<!--<div fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+<!--  <h3>Featured Streams</h3>-->
+<!--  <button  mat-stroked-button color="warn">View All</button>-->
+<!--</div>-->
+
+<!--<div fxLayout="row wrap" fxLayoutGap="12px grid">-->
+<!--  <div *ngFor="let num of [1,2,3] ">-->
+<!--    <app-video-card></app-video-card>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<br>-->
+<!--<div fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+<!--  <h3>Recommended channels</h3>-->
+<!--  <button  mat-stroked-button color="warn">View All</button>-->
+<!--</div>-->
+
+<!--<div fxLayout="row wrap" fxLayoutGap="12px grid">-->
+<!--  <div *ngFor="let num of [1,2,3] ">-->
+<!--    <app-video-card></app-video-card>-->
+<!--  </div>-->
+<!--</div>-->

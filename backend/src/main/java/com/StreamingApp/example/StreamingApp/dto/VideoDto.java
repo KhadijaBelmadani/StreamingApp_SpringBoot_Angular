@@ -12,14 +12,13 @@ import java.util.List;
 @Setter
 public class VideoDto {
     private String id;
-//    private String userId;
-//    private String categoryId;
     private String description;
     private String title;
     private List<String> tags;
     private VideoStatus videoStatus;
     private String url;
     private String thumbnailUrl;
-
-
+    private Integer likeCount;
+    private Integer dislikeCount;
+    private Integer viewCount;
 }
