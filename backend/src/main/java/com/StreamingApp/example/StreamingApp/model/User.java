@@ -36,8 +36,7 @@ public class User {
         likedVideos.add(videoId);
     }
 
-    public void removeFromLikedVideos(String videoId) {
-        likedVideos.remove(videoId);
+    public void removeFromLikedVideos(String videoId) {likedVideos.remove(videoId);
     }
 
     public void addToDisLikedVideos(String videoId) {

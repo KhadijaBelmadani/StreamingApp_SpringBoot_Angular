@@ -53,5 +53,10 @@ public class Video {
     public void incrementViewCount() {
         viewCount.incrementAndGet();
     }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
 }
 

@@ -1,5 +1,6 @@
 package com.StreamingApp.example.StreamingApp.service;
 
+import com.StreamingApp.example.StreamingApp.dto.CommentDto;
 import com.StreamingApp.example.StreamingApp.dto.UploadVideoResponse;
 import com.StreamingApp.example.StreamingApp.dto.VideoDto;
 import com.StreamingApp.example.StreamingApp.model.Video;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,7 +87,6 @@ public class VideoService {
 
         Video videoById= getVideoById(videoId);
 
-
         if (userService.ifLikedVideo(videoId)) {
             videoById.decrementLikes();
             userService.removeFromLikedVideos(videoId);
@@ -140,5 +141,20 @@ public class VideoService {
         return allVideos.stream()
                 .map(this::MapToVideoDto)
                 .collect(Collectors.toList());
+    }
+
+    public void addComment(CommentDto commentDto, String videoId) {
+//        var video = getVideoById(videoId);
+//        var comment = commentMapper.mapFromDto(commentDto);
+//        video.addComment(comment);
+//        videoRepository.save(video);
+    }
+
+    public List<CommentDto> getAllComments(String videoId) {
+        return null;
+//                videoRepository.findById(videoId)
+//                .stream()
+//                .map(video -> commentMapper.mapToDtoList(video.getComments()))
+//                .findAny().orElse(Collections.emptyList());
     }
 }

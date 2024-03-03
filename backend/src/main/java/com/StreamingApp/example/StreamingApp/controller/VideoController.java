@@ -68,4 +68,16 @@ public class VideoController {
     public List<VideoDto> getVideoMetaData() {
         return videoService.getAllVideos();
     }
+
+    @PostMapping("{videoId}/comment")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addComments(@PathVariable String videoId, @RequestBody CommentDto commentDto) {
+        videoService.addComment(commentDto, videoId);
+    }
+
+    @GetMapping("{videoId}/comment")
+    @ResponseStatus(HttpStatus.OK)
+    public List<CommentDto> getAllComments(@PathVariable String videoId) {
+        return videoService.getAllComments(videoId);
+    }
 }

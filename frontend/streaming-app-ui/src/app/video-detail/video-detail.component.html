@@ -1,20 +1,53 @@
 <div fxLayout="row">
   <div fxFlex="65%" class="video-detail">
-    <app-video-player *ngIf="videoAvailable"  [videoUrl]="videoUrl"></app-video-player>
-    <div class="mat-title text-white" >{{videoTitle}}</div>
-  <div fxLayout="row">
-    <div fxFlex="50%" class="text-white">
-      <div>{{viewCount}}</div>
-      <div>{{videoDescription}}</div>
-    </div>
+    <div fxLayout="column" fxLayoutGap="8px">
+      <app-video-player *ngIf="videoAvailable" [videoUrl]="videoUrl"></app-video-player><br>
+      <div class="mat-title"style="font-size: 20px">{{ videoTitle }}</div>
+      <div fxLayout="row">
+        <div fxFlex="50%">
+          <span class="view-count">{{ viewCount }} Views</span>
+          <span class="dot"></span>&nbsp;&nbsp;
+          <span class="video-upload-date">Apr 13, 2021</span>
+        </div>
+        <div fxFlex="50%" fxLayoutAlign="end">
+          <span class="like-dislike-section">
+              <button mat-icon-button class="thumbs-up" (click)="likeVideo()">
+                <mat-icon>thumb_up_off_alt</mat-icon>
+                {{likeCount}}
+              </button>
+              <button mat-icon-button class="thumbs-down" (click)="disLike()">
+                <mat-icon>thumb_down_off_alt</mat-icon>
+                {{dislikeCount}}
+              </button>
+          </span>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-card-header>
+        <mat-card-title>{{ videoDescription }}</mat-card-title><br>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <button *ngIf="showSubscribeButton" class="subscribe-button" mat-raised-button color="warn" (click)="subscribeToUser()">
+            Follow
+          </button>
+          <button *ngIf="showUnsubscribeButton" class="subscribe-button-clicked" mat-raised-button color="warn" (click)="unsubscribeToUser()">
+            Unfollow
+          </button>
+          <span class="follower-count">2000 Followers</span>
+        </div>
 
-    <div fxFlex="50%">
-
+      </mat-card-header>
+      <div>{{videoTags}}</div>
+      <mat-divider></mat-divider>
+<!--      <mat-chip-grid>{{videoTags}}</mat-chip-grid>-->
+<!--      <mat-chip-list>-->
+<!--        <mat-chip>Spring Boot</mat-chip>-->
+<!--        <mat-chip>Angular</mat-chip>-->
+<!--      </mat-chip-list>-->
+      <mat-divider></mat-divider>
+      <app-comments [videoId]="videoId"></app-comments>
     </div>
-  </div>
   </div>
   <div fxFlex="5%"></div>
-  <div fxFlex="30%" class="text-white">
-    Suggestions Bar
+  <div fxFlex="30%" class="suggestion-bar">
   </div>
 </div>
