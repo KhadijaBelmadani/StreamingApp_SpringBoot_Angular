@@ -1,12 +1,12 @@
-<mat-sidenav mode="side" opened >
+<mat-sidenav mode="side" opened class="custom-sidebar">
   <mat-nav-list role="list">
     <mat-list-item role="listitem"  class="itt" routerLink="/featured">
-      <mat-icon mat-lis class="coll" >home</mat-icon> &nbsp;&nbsp;
+      <mat-icon class="coll">home</mat-icon> &nbsp;&nbsp;
       <span matLine>Home</span>
     </mat-list-item>
     <mat-list-item role="listitem" class="itt" routerLink="/subscriptions">
       <mat-icon class="coll" >subscriptions</mat-icon>&nbsp;&nbsp;
-      <span >Subscriptions</span>
+      <span matLine>Subscriptions</span>
     </mat-list-item>
     <mat-list-item role="listitem" class="itt" routerLink="/history">
       <mat-icon class="coll" >history</mat-icon>&nbsp;&nbsp;
@@ -21,7 +21,8 @@
       <span matLine>Recommendations</span>
     </mat-list-item>
   </mat-nav-list>
-</mat-sidenav>
+  <app-footer></app-footer>
 
+</mat-sidenav>
 
 

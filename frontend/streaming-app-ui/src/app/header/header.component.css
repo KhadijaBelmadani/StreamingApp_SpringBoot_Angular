@@ -1,3 +1,12 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+.fixed-header {
+  position: fixed;
+  background-color: black;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Adjust z-index as needed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optionally, add a box shadow */
+}

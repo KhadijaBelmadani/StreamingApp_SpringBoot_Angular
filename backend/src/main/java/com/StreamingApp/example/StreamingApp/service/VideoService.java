@@ -3,6 +3,7 @@ package com.StreamingApp.example.StreamingApp.service;
 import com.StreamingApp.example.StreamingApp.dto.CommentDto;
 import com.StreamingApp.example.StreamingApp.dto.UploadVideoResponse;
 import com.StreamingApp.example.StreamingApp.dto.VideoDto;
+import com.StreamingApp.example.StreamingApp.mapper.CommentMapper;
 import com.StreamingApp.example.StreamingApp.model.Video;
 import com.StreamingApp.example.StreamingApp.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class VideoService {
     private final S3Service s3service;
     private final VideoRepository videoRepository;
     private final UserService userService;
+    private final CommentMapper commentMapper;
 
     public UploadVideoResponse uploadVideo(MultipartFile multipartFile) {
         String videoUrl = s3service.uploadFile(multipartFile);
@@ -144,17 +146,17 @@ public class VideoService {
     }
 
     public void addComment(CommentDto commentDto, String videoId) {
-//        var video = getVideoById(videoId);
-//        var comment = commentMapper.mapFromDto(commentDto);
-//        video.addComment(comment);
-//        videoRepository.save(video);
+        var video = getVideoById(videoId);
+        var comment = commentMapper.mapFromDto(commentDto);
+        video.addComment(comment);
+        videoRepository.save(video);
     }
 
     public List<CommentDto> getAllComments(String videoId) {
-        return null;
-//                videoRepository.findById(videoId)
-//                .stream()
-//                .map(video -> commentMapper.mapToDtoList(video.getComments()))
-//                .findAny().orElse(Collections.emptyList());
+        return
+                videoRepository.findById(videoId)
+                .stream()
+                .map(video -> commentMapper.mapToDtoList(video.getComments()))
+                .findAny().orElse(Collections.emptyList());
     }
 }

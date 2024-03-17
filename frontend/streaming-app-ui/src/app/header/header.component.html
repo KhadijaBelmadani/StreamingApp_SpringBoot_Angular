@@ -1,4 +1,4 @@
-<section id="header">
+<section id="header" class="fixed-header">
   <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
     <div class="container">
       <a class="navbar-brand text-white fw-bold " style="margin-right: 130px" href="index.html"><i class="fa fa-video-camera coll me-1"></i> BelAmStream</a>
@@ -17,12 +17,24 @@
       </div>
       &nbsp;&nbsp;&nbsp;
       <span class="example-spacer"></span>
-      <button mat-mini-fab color="warn" class="angular_icon" aria-label="Example icon-button with heart icon">
+      <button mat-mini-fab color="warn"
+              [matMenuTriggerFor]="menu2"
+              class="angular_icon" aria-label="Example icon-button with heart icon">
         <mat-icon>video_call</mat-icon>
       </button>&nbsp;&nbsp;&nbsp;&nbsp;
-      <button *ngIf="isAuthenticated;else noAuth" mat-mini-fab color="warn" class="angular_icon" aria-label="Example icon-button with share icon">
+      <mat-menu #menu2="matMenu">
+        <button mat-menu-item  (click)="uploadVideo()"><mat-icon color="warn">voice_chat</mat-icon> Upload Video</button>
+        <button mat-menu-item ><mat-icon color="warn">ondemand_video</mat-icon> Go Live</button>
+      </mat-menu>
+      <button *ngIf="isAuthenticated;else noAuth"
+              [matMenuTriggerFor]="menu"
+              mat-mini-fab color="warn" class="angular_icon" aria-label="Example icon-button with share icon">
         <mat-icon>account_circle</mat-icon>
       </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item ><mat-icon color="warn">account_box</mat-icon> My Profile</button>
+        <button mat-menu-item (click)="logout()" ><mat-icon color="warn">logout</mat-icon> LogOut</button>
+      </mat-menu>
       <ng-template #noAuth>
         <button mat-raised-button color="warn" (click)="login()">login</button>
       </ng-template>

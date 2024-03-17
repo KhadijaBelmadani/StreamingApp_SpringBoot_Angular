@@ -1,4 +1,24 @@
-.itt{
-  position: relative;
-  top: 30px;
+.custom-sidebar {
+  background-color: black; /* Set background color to black */
+  position: fixed; /* Fix the sidebar position */
+  top: 80px; /* Align to the top of the viewport */
+  bottom: 0; /* Extend to the bottom of the viewport */
+}
+
+/* Adjust padding and styling for the list items as needed */
+.itt {
+  padding: 10px;
+  color: white; /* Set text color to white */
+}
+
+.itt:hover {
+  background-color: #333; /* Change background color on hover as needed */
+}
+
+/* Style the icons as needed */
+.coll {
+  color: white; /* Set icon color to white */
+}
+span{
+  color: white;
 }

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OidcSecurityService} from "angular-auth-oidc-client";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -9,7 +10,7 @@ import {OidcSecurityService} from "angular-auth-oidc-client";
 })
 export class HeaderComponent implements OnInit {
   isAuthenticated:boolean=false;
-  constructor(private oidcSecurityService: OidcSecurityService) {
+  constructor(private oidcSecurityService: OidcSecurityService,private router:Router) {
   }
 
   ngOnInit(): void {
@@ -24,6 +25,19 @@ export class HeaderComponent implements OnInit {
   }
   logout() {
     this.oidcSecurityService.logoffAndRevokeTokens();
+    this.oidcSecurityService.logoffLocal();
+  }
 
+  uploadVideo() {
+    // Check if the user is authenticated
+    if (!this.isAuthenticated) {
+      // User is not authenticated, display an alert
+      alert('Please log in or sign up to upload a video.');
+
+
+    } else {
+
+      this.router.navigateByUrl('/upload-video');
+    }
   }
 }

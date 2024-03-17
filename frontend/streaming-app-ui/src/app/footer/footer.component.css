@@ -19,6 +19,7 @@
 .copyright-area {
   padding: 14px 0px;
   background-color: #f44336;
+
 }
 .copyright-area p {
   margin-bottom: 0px;
@@ -32,4 +33,17 @@
   margin: 0px 10px;
   color: #fff;
   width: 20px;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #333; /* Choose your desired background color */
+  color: white; /* Choose your desired text color */
+  /*padding: 20px 0; !* Adjust padding as needed *!*/
+  /*text-align: center;*/
+}
+.social-media a {
+  margin: 0 5px; /* Adjust margin as needed */
 }
