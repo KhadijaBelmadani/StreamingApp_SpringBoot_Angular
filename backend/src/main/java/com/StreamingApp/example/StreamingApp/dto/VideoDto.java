@@ -10,8 +10,10 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class VideoDto {
     private String id;
+    private String userId;
     private String description;
     private String title;
     private List<String> tags;
@@ -21,4 +23,6 @@ public class VideoDto {
     private Integer likeCount;
     private Integer dislikeCount;
     private Integer viewCount;
+
+
 }

@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @AllArgsConstructor
 public class UserService {
@@ -70,5 +72,19 @@ public class UserService {
     }
 
     public void unSubscribeUser(String userId) {
+        var currentUser = getCurrentUser();
+        currentUser.removeFromSubscribedUsers(userId);
+
+        var subscribedToUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ExpressionException("Invalid User - " + userId));
+        subscribedToUser.removeFromSubscribers(subscribedToUser.getId());
+
+        userRepository.save(currentUser);
+        userRepository.save(subscribedToUser);
+    }
+
+    public Set<String> getLikedVideos(String userId) {
+        var user=userRepository.findById(userId).orElseThrow(()->new ExpressionException("Invalid User - " + userId));
+        return user.getLikedVideos();
     }
 }

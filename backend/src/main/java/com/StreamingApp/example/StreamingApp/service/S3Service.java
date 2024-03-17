@@ -11,6 +11,7 @@ import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.UUID;
 
 @Service
@@ -52,5 +53,23 @@ public class S3Service implements FileService {
                 .key(key)
                 .build();
         return amazonS3Client.utilities().getUrl(getUrlRequest).toExternalForm();
+    }
+
+    public void deleteFile(String fileUrl) {
+        String key = extractKeyFromUrl(fileUrl);
+        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                .bucket(BUCKET_NAME)
+                .key(key)
+                .build();
+        amazonS3Client.deleteObject(deleteObjectRequest);
+    }
+
+    private String extractKeyFromUrl(String fileUrl) {
+        try {
+            URL url = new URL(fileUrl);
+            return url.getPath().substring(1); // Remove leading slash
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid file URL provided");
+        }
     }
 }

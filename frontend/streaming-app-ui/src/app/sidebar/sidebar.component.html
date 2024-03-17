@@ -1,28 +1,79 @@
-<mat-sidenav mode="side" opened class="custom-sidebar">
-  <mat-nav-list role="list">
-    <mat-list-item role="listitem"  class="itt" routerLink="/featured">
-      <mat-icon class="coll">home</mat-icon> &nbsp;&nbsp;
-      <span matLine>Home</span>
-    </mat-list-item>
-    <mat-list-item role="listitem" class="itt" routerLink="/subscriptions">
-      <mat-icon class="coll" >subscriptions</mat-icon>&nbsp;&nbsp;
-      <span matLine>Subscriptions</span>
-    </mat-list-item>
-    <mat-list-item role="listitem" class="itt" routerLink="/history">
-      <mat-icon class="coll" >history</mat-icon>&nbsp;&nbsp;
-      <span matLine>History</span>
-    </mat-list-item>
-    <mat-list-item role="listitem" class="itt" routerLink="/liked-videos">
-      <mat-icon class="coll" >thumb_up</mat-icon>&nbsp;&nbsp;
-      <span matLine>Favorite</span>
-    </mat-list-item>
-    <mat-list-item role="listitem" class="itt" routerLink="/recommendations">
-      <mat-icon class="coll" >done_all</mat-icon>&nbsp;&nbsp;
-      <span matLine>Recommendations</span>
-    </mat-list-item>
-  </mat-nav-list>
-  <app-footer></app-footer>
 
-</mat-sidenav>
+<!--<mat-sidenav mode="side" opened class="custom-sidebar">-->
+<!--  <mat-nav-list role="list">-->
+<!--    <mat-list-item role="listitem"  class="itt" routerLink="/featured">-->
+<!--      <mat-icon class="coll">home</mat-icon> &nbsp;&nbsp;-->
+<!--      <span matLine>Home</span>-->
+<!--    </mat-list-item>-->
+<!--    <mat-list-item role="listitem" class="itt" routerLink="/subscriptions">-->
+<!--      <mat-icon class="coll" >subscriptions</mat-icon>&nbsp;&nbsp;-->
+<!--      <span matLine>Subscriptions</span>-->
+<!--    </mat-list-item>-->
+<!--    <mat-list-item role="listitem" class="itt" routerLink="/history">-->
+<!--      <mat-icon class="coll" >history</mat-icon>&nbsp;&nbsp;-->
+<!--      <span matLine>History</span>-->
+<!--    </mat-list-item>-->
+<!--    <mat-list-item role="listitem" class="itt" routerLink="/liked-videos">-->
+<!--      <mat-icon class="coll" >thumb_up</mat-icon>&nbsp;&nbsp;-->
+<!--      <span matLine>Favorite</span>-->
+<!--    </mat-list-item>-->
+<!--    <mat-list-item role="listitem" class="itt" routerLink="/recommendations">-->
+<!--      <mat-icon class="coll" >done_all</mat-icon>&nbsp;&nbsp;-->
+<!--      <span matLine>Recommendations</span>-->
+<!--    </mat-list-item>-->
+<!--  </mat-nav-list>-->
 
+
+<!--</mat-sidenav>-->
+
+<!--  <h1 class="example-app-name">Nested Menus</h1>-->
+
+<mat-sidenav-container class="example-container custom-sidebar" autosize>
+
+  <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
+    <mat-nav-list>
+      <mat-list-item class="itt" routerLink="/featured">
+        <button mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>last_page</mat-icon></button>
+
+      </mat-list-item>
+      <mat-list-item class="itt" routerLink="/featured">
+        <mat-icon class="coll">home</mat-icon> &nbsp;&nbsp;
+        <span class="full-width" *ngIf="isExpanded || isShowing">Home</span>
+      </mat-list-item>
+      <mat-list-item class="itt" routerLink="/subscriptions">
+        <mat-icon class="coll" >subscriptions</mat-icon> &nbsp;&nbsp;
+        <span class="full-width" *ngIf="isExpanded || isShowing">Subscriptions</span>
+      </mat-list-item>
+      <mat-list-item class="itt" routerLink="/history">
+        <mat-icon class="coll" >history</mat-icon> &nbsp;&nbsp;
+        <span class="full-width" *ngIf="isExpanded || isShowing">History</span>
+      </mat-list-item>
+      <mat-list-item class="itt" routerLink="/liked-videos">
+        <mat-icon class="coll" >thumb_up</mat-icon> &nbsp;&nbsp;
+        <span class="full-width" *ngIf="isExpanded || isShowing">Favorite</span>
+      </mat-list-item>
+      <mat-list-item class="itt" routerLink="/recommendations">
+        <mat-icon class="coll" >done_all</mat-icon> &nbsp;&nbsp;
+        <span class="full-width" *ngIf="isExpanded || isShowing">Recommendation</span>
+      </mat-list-item>
+
+    </mat-nav-list>
+
+
+    <mat-nav-list>
+    </mat-nav-list>
+    <app-footer></app-footer>
+  </mat-sidenav>
+
+<!--  <div class="example-sidenav-content">-->
+<!--    Main content that resizes properly-->
+<!--  </div>-->
+
+</mat-sidenav-container>
+
+
+
+<!-- Copyright 2017 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
 

@@ -4,6 +4,7 @@ import com.StreamingApp.example.StreamingApp.dto.CommentDto;
 import com.StreamingApp.example.StreamingApp.dto.UploadVideoResponse;
 import com.StreamingApp.example.StreamingApp.dto.VideoDto;
 import com.StreamingApp.example.StreamingApp.mapper.CommentMapper;
+import com.StreamingApp.example.StreamingApp.mapper.VideoMapper;
 import com.StreamingApp.example.StreamingApp.model.Video;
 import com.StreamingApp.example.StreamingApp.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +24,7 @@ public class VideoService {
     private final VideoRepository videoRepository;
     private final UserService userService;
     private final CommentMapper commentMapper;
+    private final VideoMapper videoMapper;
 
     public UploadVideoResponse uploadVideo(MultipartFile multipartFile) {
         String videoUrl = s3service.uploadFile(multipartFile);
@@ -158,5 +162,31 @@ public class VideoService {
                 .stream()
                 .map(video -> commentMapper.mapToDtoList(video.getComments()))
                 .findAny().orElse(Collections.emptyList());
+    }
+
+    public List<VideoDto> getSuggestedVideos(String userId) {
+        Set<String> likedVideos=userService.getLikedVideos(userId);
+        List<Video> likedVideoList=videoRepository.findByIdIn(likedVideos);
+        List<String> tags=likedVideoList.stream()
+                .map(Video::getTags)
+                .flatMap(List::stream)
+                .toList();
+        return videoRepository.findByTagsIn(tags)
+                .stream()
+                .limit(5)
+                .map(videoMapper::mapToDto)
+                .toList();
+    }
+
+    public void deleteVideo(String videoId) {
+        String videoUrl=getVideoById(videoId).getUrl();
+        s3service.deleteFile(videoUrl);
+    }
+
+    public List<VideoDto> getAllVideosByChannel(String userId) {
+        List<Video> videos=videoRepository.findByUserId(userId);
+        return videos.stream()
+                .map(videoMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 }

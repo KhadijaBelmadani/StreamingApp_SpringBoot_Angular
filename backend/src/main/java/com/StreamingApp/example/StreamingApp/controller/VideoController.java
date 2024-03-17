@@ -81,4 +81,22 @@ public class VideoController {
     public List<CommentDto> getAllComments(@PathVariable String videoId) {
         return videoService.getAllComments(videoId);
     }
+
+    @GetMapping("suggested/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<VideoDto> getSuggestedVideos(@PathVariable String userId) {
+        return videoService.getSuggestedVideos(userId);
+    }
+
+    @DeleteMapping("{videoId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteVideo(@PathVariable String videoId) {
+        videoService.deleteVideo(videoId);
+    }
+
+    @GetMapping("channel/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<VideoDto> allChannelVideos(@PathVariable String userId) {
+        return videoService.getAllVideosByChannel(userId);
+    }
 }

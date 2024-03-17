@@ -63,5 +63,13 @@ public class User {
     public void addVideoToHistory(String videoId) {
         videoHistory.add(videoId);
     }
+
+    public void removeFromSubscribedUsers(String userId) {
+        subscribedToUsers.remove(userId);
+    }
+
+    public void removeFromSubscribers(String userId) {
+        subscribers.remove(userId);
+    }
 }
 
