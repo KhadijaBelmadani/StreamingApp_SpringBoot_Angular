@@ -8,6 +8,8 @@ import {VideoDto} from "../video-dto";
   providedIn: 'root'
 })
 export class VideoService {
+  private baseUrl = 'http://localhost:8080/api/videos'; // Update the base URL with your backend URL
+
 
   constructor(private httpClient:HttpClient) { }
 
@@ -45,5 +47,8 @@ export class VideoService {
   }
   disLikeVideo(videoId: string):Observable<VideoDto> {
     return this.httpClient.post<VideoDto>("http://localhost:8080/api/videos/"+videoId+"/dislike",null) ;
+  }
+  searchVideos(query: string): Observable<VideoDto[]> {
+    return this.httpClient.get<VideoDto[]>(`${this.baseUrl}?query=${query}`);
   }
 }

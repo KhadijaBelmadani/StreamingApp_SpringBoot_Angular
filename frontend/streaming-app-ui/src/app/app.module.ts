@@ -44,6 +44,8 @@ import {MatCardModule} from "@angular/material/card";
 import { CallbackComponent } from './callback/callback.component';
 import { CommentsComponent } from './comments/comments.component';
 import {MatMenuModule} from "@angular/material/menu";
+import { CategoriesComponent } from './categories/categories.component';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -65,6 +67,9 @@ import {MatMenuModule} from "@angular/material/menu";
     VideoCardComponent,
     CallbackComponent,
     CommentsComponent,
+    CategoriesComponent,
+    SearchComponent,
+
 
   ],
     imports: [

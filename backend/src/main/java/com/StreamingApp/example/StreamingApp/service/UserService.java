@@ -1,5 +1,7 @@
 package com.StreamingApp.example.StreamingApp.service;
 
+import com.StreamingApp.example.StreamingApp.dto.UserInfoDto;
+import com.StreamingApp.example.StreamingApp.dto.VideoDto;
 import com.StreamingApp.example.StreamingApp.model.User;
 import com.StreamingApp.example.StreamingApp.model.Video;
 import com.StreamingApp.example.StreamingApp.repository.UserRepository;
@@ -87,4 +89,21 @@ public class UserService {
         var user=userRepository.findById(userId).orElseThrow(()->new ExpressionException("Invalid User - " + userId));
         return user.getLikedVideos();
     }
+
+    public UserInfoDto getUser(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ExpressionException("User not found with id: " + userId));
+
+        UserInfoDto userInfoDto = new UserInfoDto();
+        userInfoDto.setId(user.getId());
+        userInfoDto.setSub(user.getSub());
+        userInfoDto.setGivenName(user.getFirstName());
+        userInfoDto.setFamilyName(user.getLastName());
+        userInfoDto.setName(user.getFullName());
+        userInfoDto.setPicture(user.getPicture());
+        userInfoDto.setEmail(user.getEmail());
+
+        return userInfoDto;
+    }
+
 }

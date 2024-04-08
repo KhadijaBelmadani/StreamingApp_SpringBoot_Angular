@@ -6,12 +6,12 @@
       <div class="col-md-4">
         <div class="top_1m">
           <div class="input-group">
-            <input type="text" class="form-control bg-white" placeholder="Search Site...">
+            <input type="text" [(ngModel)]="searchTerm" class="form-control bg-white" placeholder="Search Site...">
             <span class="input-group-btn">
-
-					<button class="btn btn text-white bg_red rounded-0 border-0" type="button">
-						 Search</button>
-				</span>
+        <button class="btn btn text-white bg_red rounded-0 border-0" type="button" (click)="searchVideos()">
+          Search
+        </button>
+      </span>
           </div>
         </div>
       </div>

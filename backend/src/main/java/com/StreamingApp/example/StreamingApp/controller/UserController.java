@@ -1,5 +1,7 @@
 package com.StreamingApp.example.StreamingApp.controller;
 
+import com.StreamingApp.example.StreamingApp.dto.UserInfoDto;
+import com.StreamingApp.example.StreamingApp.dto.VideoDto;
 import com.StreamingApp.example.StreamingApp.service.UserRegistrationService;
 import com.StreamingApp.example.StreamingApp.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +32,10 @@ public class UserController {
         return true;
     }
 
-
+    @GetMapping("/{userId}")
+    public UserInfoDto getUser(@PathVariable String userId) {
+        return userService.getUser(userId);
+    }
 
     @PostMapping("unSubscribe/{userId}")
     @ResponseStatus(HttpStatus.OK)

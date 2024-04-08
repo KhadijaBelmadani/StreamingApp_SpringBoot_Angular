@@ -32,7 +32,7 @@ export class CommentsComponent implements OnInit{
     const comment= this.commentsForm.get('comment')?.value;
 
     const commentDto={
-      "commentText":comment,
+      "text":comment,
       "authorId":this.userService.getUserId(),
     }
     this.commentService.postComment(commentDto,this.videoId).subscribe(()=>{
@@ -45,6 +45,19 @@ export class CommentsComponent implements OnInit{
   getComments(){
     this.commentService.getAllComments(this.videoId).subscribe(data=>{
       this.commentDto=data;
+    });
+  }
+
+  cancelComment() {
+    this.commentsForm.get('comment')?.reset();
+  }
+
+
+  deleteComment(commentId: string) {
+    this.commentService.deleteComment(commentId,this.videoId).subscribe(() => {
+      this.matSnackBar.open("Comment deleted Successfully", "OK");
+      // After deleting the comment, refresh the comment list
+      this.getComments();
     });
   }
 }

@@ -1,6 +1,9 @@
 export interface CommentDto{
-  commentText:string,
-  authorId:string
+  id:string,
+  text:string,
+  author:string,
+  likeCount:number,
+  dislikeCount:number
 }
 
 

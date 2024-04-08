@@ -10,13 +10,14 @@
           <span class="video-upload-date">Apr 13, 2021</span>
         </div>
         <div fxFlex="50%" fxLayoutAlign="end">
+        {{uploaderFullName}}
           <span class="like-dislike-section">
               <button mat-icon-button class="thumbs-up" (click)="likeVideo()">
-                <mat-icon>thumb_up_off_alt</mat-icon>
+                <mat-icon>arrow_upwards</mat-icon>
                 {{likeCount}}
               </button>
               <button mat-icon-button class="thumbs-down" (click)="disLike()">
-                <mat-icon>thumb_down_off_alt</mat-icon>
+                <mat-icon>arrow_downward</mat-icon>
                 {{dislikeCount}}
               </button>
           </span>
@@ -36,14 +37,15 @@
         </div>
 
       </mat-card-header>
-      <div>{{videoTags}}</div>
+
       <mat-divider></mat-divider>
-<!--      <mat-chip-grid>{{videoTags}}</mat-chip-grid>-->
-<!--      <mat-chip-list>-->
-<!--        <mat-chip>Spring Boot</mat-chip>-->
-<!--        <mat-chip>Angular</mat-chip>-->
-<!--      </mat-chip-list>-->
+      <mat-chip-grid>
+        <mat-list>
+          <mat-chip *ngFor="let tag of videoTags">{{ tag }}</mat-chip>
+        </mat-list>
+      </mat-chip-grid>
       <mat-divider></mat-divider>
+
       <app-comments [videoId]="videoId"></app-comments>
     </div>
   </div>

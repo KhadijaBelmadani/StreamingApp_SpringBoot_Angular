@@ -5,16 +5,16 @@ import com.StreamingApp.example.StreamingApp.dto.UploadVideoResponse;
 import com.StreamingApp.example.StreamingApp.dto.VideoDto;
 import com.StreamingApp.example.StreamingApp.mapper.CommentMapper;
 import com.StreamingApp.example.StreamingApp.mapper.VideoMapper;
+import com.StreamingApp.example.StreamingApp.model.Comment;
+import com.StreamingApp.example.StreamingApp.model.User;
 import com.StreamingApp.example.StreamingApp.model.Video;
+import com.StreamingApp.example.StreamingApp.repository.CommentRepository;
 import com.StreamingApp.example.StreamingApp.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 public class VideoService {
     private final S3Service s3service;
     private final VideoRepository videoRepository;
+    private final CommentRepository commentRepository;
     private final UserService userService;
     private final CommentMapper commentMapper;
     private final VideoMapper videoMapper;
@@ -30,6 +31,7 @@ public class VideoService {
         String videoUrl = s3service.uploadFile(multipartFile);
         Video video = new Video();
         video.setUrl(videoUrl);
+//        video.setUserId(userId);
         var savedVideo= videoRepository.save(video);
         return new UploadVideoResponse(savedVideo.getId(),savedVideo.getUrl());
     }
@@ -43,7 +45,7 @@ public class VideoService {
         savedVideo.setTags(videoDto.getTags());
 //        savedVideo.setThumbnailUrl(videoDto.getThumbnailUrl()); // Set the thumbnailUrl
         savedVideo.setVideoStatus(videoDto.getVideoStatus());
-
+        savedVideo.setUserId(videoDto.getUserId());
         // Save the video to DB
         videoRepository.save(savedVideo);
         return videoDto;
@@ -81,6 +83,7 @@ public class VideoService {
         videoDto.setLikeCount(savedVideo.getLikes().get());
         videoDto.setDislikeCount(savedVideo.getDisLikes().get());
         videoDto.setViewCount(savedVideo.getViewCount().get());
+        videoDto.setUserId(savedVideo.getUserId());
         return videoDto;
     }
 
@@ -91,7 +94,7 @@ public class VideoService {
 
     public VideoDto likeVideo(String videoId) {
 
-        Video videoById= getVideoById(videoId);
+        var videoById= getVideoById(videoId);
 
         if (userService.ifLikedVideo(videoId)) {
             videoById.decrementLikes();
@@ -99,8 +102,8 @@ public class VideoService {
         } else if (userService.ifDisLikedVideo(videoId)) {
             videoById.decrementDisLikes();
             userService.removeFromDisLikedVideos(videoId);
-            videoById.incrementLikes();
-            userService.addToLikedVideos(videoId);
+//            videoById.incrementLikes();
+//            userService.addToLikedVideos(videoId);
         }else {
             videoById.incrementLikes();
             userService.addToLikedVideos(videoId);
@@ -111,15 +114,15 @@ public class VideoService {
 
     public VideoDto dislikeVideo(String videoId) {
         //Get video by id
-        Video videoById= getVideoById(videoId);
+        var videoById= getVideoById(videoId);
         if (userService.ifDisLikedVideo(videoId)) {
             videoById.decrementDisLikes();
             userService.removeFromDisLikedVideos(videoId);
         } else if (userService.ifLikedVideo(videoId)) {
             videoById.decrementLikes();
             userService.removeFromLikedVideos(videoId);
-            videoById.incrementDisLikes();
-            userService.addToDislikedVideos(videoId);
+//            videoById.incrementDisLikes();
+//            userService.addToDislikedVideos(videoId);
         }else {
             videoById.incrementDisLikes();
             userService.addToDislikedVideos(videoId);
@@ -139,6 +142,7 @@ public class VideoService {
         videoDto.setLikeCount(videoById.getLikes().get());
         videoDto.setDislikeCount(videoById.getDisLikes().get());
         videoDto.setViewCount(videoById.getViewCount().get());
+        videoDto.setUserId(videoById.getUserId());
         return videoDto;
     }
 
@@ -154,6 +158,7 @@ public class VideoService {
         var comment = commentMapper.mapFromDto(commentDto);
         video.addComment(comment);
         videoRepository.save(video);
+
     }
 
     public List<CommentDto> getAllComments(String videoId) {
@@ -162,6 +167,7 @@ public class VideoService {
                 .stream()
                 .map(video -> commentMapper.mapToDtoList(video.getComments()))
                 .findAny().orElse(Collections.emptyList());
+
     }
 
     public List<VideoDto> getSuggestedVideos(String userId) {
@@ -189,4 +195,34 @@ public class VideoService {
                 .map(videoMapper::mapToDto)
                 .collect(Collectors.toList());
     }
-}
+    public void deleteComment(String videoId, String commentId) {
+        // Retrieve the video by its ID
+        Video video = getVideoById(videoId);
+
+        // Find the comment to delete
+        Optional<Comment> commentToDelete = video.getComments().stream()
+                .filter(comment -> comment.getId().equals(commentId))
+                .findFirst();
+
+        // If comment is found, remove it from the list of comments
+        commentToDelete.ifPresent(video.getComments()::remove);
+
+        // Save the updated video to the database
+        videoRepository.save(video);
+    }
+
+    public List<VideoDto> findByTag(String query) {
+        List<Video> videos=videoRepository.findByTagsContainingIgnoreCase(query);
+        return videos.stream()
+                .map(this::MapToVideoDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<VideoDto> searchVideos(String query) {
+
+            List<Video> videos = videoRepository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(query, query);
+            return videos.stream()
+                    .map(this::MapToVideoDto)
+                    .collect(Collectors.toList());
+        }
+    }

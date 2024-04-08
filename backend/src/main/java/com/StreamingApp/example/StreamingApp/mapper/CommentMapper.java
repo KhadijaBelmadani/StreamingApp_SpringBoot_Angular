@@ -11,8 +11,10 @@ import java.util.stream.Collectors;
 public class CommentMapper {
     public Comment mapFromDto(CommentDto commentDto) {
         return Comment.builder()
-                .text(commentDto.getCommentText())
-                .author(commentDto.getAuthorId())
+                .id(commentDto.getId())
+                .text(commentDto.getText())
+                .author(commentDto.getAuthor())
+                .creationDate(commentDto.getCreationDate())
                 .build();
     }
 
@@ -22,8 +24,10 @@ public class CommentMapper {
 
     public CommentDto mapToDto(Comment comment) {
         return CommentDto.builder()
-                .commentText(comment.getText())
-                .authorId(comment.getAuthor())
+                .id(comment.getId())
+                .text(comment.getText())
+                .author(comment.getAuthor())
+                .creationDate(comment.getCreationDate())
                 .likeCount(comment.likeCount())
                 .disLikeCount(comment.disLikeCount())
                 .build();

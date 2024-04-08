@@ -4,9 +4,12 @@ package com.StreamingApp.example.StreamingApp.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Min;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,15 +21,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Getter
 @Setter
 public class Video {
-
+    @Id
     private String id;
     private String title;
     private String description;
-    //foreign keys
-    private String userId;
-    private String categoryId;
-    //
+    private Date createdAt = new Date();
+    @Min(value = 0)
     private AtomicInteger likes = new AtomicInteger(0);
+    @Min(value = 0)
     private AtomicInteger disLikes = new AtomicInteger(0);
     private List<String> tags;
     private String url;
@@ -34,6 +36,12 @@ public class Video {
     private AtomicInteger viewCount = new AtomicInteger(0);
     private String thumbnailUrl;
     private List<Comment> comments = new ArrayList<>();
+    private List<Category> categories;
+    private User userId;
+
+   private Category categoryId;
+
+
 
     public void incrementLikes(){
         likes.incrementAndGet();
@@ -58,5 +66,8 @@ public class Video {
         comments.add(comment);
     }
 
+    public void deleteComment(Comment comment) {
+        comments.remove(comment);
+    }
 }
 

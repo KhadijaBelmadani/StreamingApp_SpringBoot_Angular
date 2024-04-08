@@ -18,4 +18,10 @@ export class CommentsService {
   getAllComments(videoId: string):Observable<Array<CommentDto>> {
     return  this.httpClient.get<CommentDto[]>("http://localhost:8080/api/videos/"+videoId+"/comment");
   }
+
+
+  deleteComment(commentId: string,videoId:string): Observable<CommentDto> {
+    return this.httpClient.delete<CommentDto>("http://localhost:8080/api/videos/" + videoId + "/comments/" + commentId);
+
+  }
 }

@@ -22,6 +22,7 @@ export class VideoDetailComponent implements OnInit{
   showSubscribeButton:boolean=true;
   showUnsubscribeButton:boolean=false;
 
+  uploaderFullName!: string;
 
 
 
@@ -40,12 +41,16 @@ export class VideoDetailComponent implements OnInit{
     this.likeCount=data.likeCount;
     this.dislikeCount=data.dislikeCount;
     this.viewCount=data.viewCount;
-
+    this.userService.getUser(data.userId).subscribe(user => {
+      this.uploaderFullName = user.givenName;
+    });
   });
+
 
 }
 
   ngOnInit(): void {
+    this.userService.registerUser();
   }
 
   likeVideo() {

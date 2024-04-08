@@ -1,8 +1,11 @@
 package com.StreamingApp.example.StreamingApp.dto;
 
+import com.StreamingApp.example.StreamingApp.model.Comment;
+import com.StreamingApp.example.StreamingApp.model.User;
 import com.StreamingApp.example.StreamingApp.model.VideoStatus;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,7 +16,7 @@ import java.util.List;
 @Builder
 public class VideoDto {
     private String id;
-    private String userId;
+    private User userId;
     private String description;
     private String title;
     private List<String> tags;
@@ -23,6 +26,6 @@ public class VideoDto {
     private Integer likeCount;
     private Integer dislikeCount;
     private Integer viewCount;
-
+    private List<Comment> comments = new ArrayList<>();
 
 }

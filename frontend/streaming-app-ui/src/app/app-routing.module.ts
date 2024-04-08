@@ -10,6 +10,8 @@ import {LikedVideosComponent} from "./liked-videos/liked-videos.component";
 import {RecommendationsComponent} from "./recommendations/recommendations.component";
 import {FeaturedComponent} from "./featured/featured.component";
 import {CallbackComponent} from "./callback/callback.component";
+import {HeaderComponent} from "./header/header.component";
+import {SearchComponent} from "./search/search.component";
 
 const routes: Routes = [
   {
@@ -22,6 +24,9 @@ const routes: Routes = [
   {
     path:'video-details/:videoId',component:VideoDetailComponent
 
+  },
+  {
+    path:'search',component:SearchComponent
   },
   {
     path:'callback',component:CallbackComponent

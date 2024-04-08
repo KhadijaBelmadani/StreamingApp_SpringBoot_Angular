@@ -8,7 +8,7 @@
     <div fxFlex="60%"></div>
     <div fxFlex="40%" fxFlexAlign="end">
       <span>
-        <button mat-button color="warn">CANCEL</button>
+        <button mat-button color="warn" (click)="cancelComment()">CANCEL</button>
       </span>
       <span>
         <button type="submit" (click)="postComment()" mat-button color="warn">COMMENT</button>
@@ -22,17 +22,24 @@
     <div fxFlex="50%">
       <mat-card-header>
         <div matCardAvatar class="example-header-image"></div>
-        <a matCardTitle class="comment-author" routerLink="">User</a>
+        <a matCardTitle class="comment-author" routerLink="">{{ comment.author }}</a>
         <p matCardSubtitle>1 Month Ago</p>
       </mat-card-header>
     </div>
     <div fxFlex="50%" class="delete-comment" fxFlexAlign="end">
-      <button mat-icon-button>
-        <mat-icon class="coll">delete</mat-icon>
-      </button>
+      <span class="like-dislike-section">
+              <button mat-icon-button class="thumbs-up" >
+                <mat-icon>arrow_upwards</mat-icon>
+<!--                {{comment.likeCount}}-->
+              </button>
+              <button mat-icon-button class="thumbs-down" >
+                <mat-icon>arrow_downward</mat-icon>
+<!--                {{comment.dislikeCount}}-->
+              </button>
+          </span>
     </div>
   </div>
   <div>
-    {{comment.commentText}}
+    {{comment.text}}
   </div>
 </div>
