@@ -31,7 +31,9 @@
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/@apizee/apirtc/apiRTC.min.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -24,7 +24,7 @@
       </button>&nbsp;&nbsp;&nbsp;&nbsp;
       <mat-menu #menu2="matMenu">
         <button mat-menu-item  (click)="uploadVideo()"><mat-icon color="warn">voice_chat</mat-icon> Upload Video</button>
-        <button mat-menu-item ><mat-icon color="warn">ondemand_video</mat-icon> Go Live</button>
+        <button mat-menu-item routerLink="/go-live"><mat-icon color="warn">ondemand_video</mat-icon> Create Or Join Room</button>
       </mat-menu>
       <button *ngIf="isAuthenticated;else noAuth"
               [matMenuTriggerFor]="menu"

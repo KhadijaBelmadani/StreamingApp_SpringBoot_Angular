@@ -12,6 +12,7 @@ import {FeaturedComponent} from "./featured/featured.component";
 import {CallbackComponent} from "./callback/callback.component";
 import {HeaderComponent} from "./header/header.component";
 import {SearchComponent} from "./search/search.component";
+import {LiveRoomComponent} from "./live-room/live-room.component";
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
     path:'callback',component:CallbackComponent
 
   },
+  {
+    path:'go-live',component:LiveRoomComponent
+  },
+
   {
     path:'',component:HomeComponent,
     children:[

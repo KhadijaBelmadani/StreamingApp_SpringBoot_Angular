@@ -46,6 +46,8 @@ import { CommentsComponent } from './comments/comments.component';
 import {MatMenuModule} from "@angular/material/menu";
 import { CategoriesComponent } from './categories/categories.component';
 import { SearchComponent } from './search/search.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { LiveRoomComponent } from './live-room/live-room.component';
 
 
 @NgModule({
@@ -69,6 +71,8 @@ import { SearchComponent } from './search/search.component';
     CommentsComponent,
     CategoriesComponent,
     SearchComponent,
+    LiveRoomComponent,
+
 
 
   ],
@@ -99,7 +103,8 @@ import { SearchComponent } from './search/search.component';
         MatListModule,
         MatLineModule,
         MatCardModule,
-        MatMenuModule
+        MatMenuModule,
+       MatFormFieldModule
 
     ],
   providers: [
