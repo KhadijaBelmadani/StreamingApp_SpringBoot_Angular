@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {UploadVideoResponse} from "./UploadVideoResponse";
 import {VideoDto} from "../video-dto";
@@ -48,7 +48,9 @@ export class VideoService {
   disLikeVideo(videoId: string):Observable<VideoDto> {
     return this.httpClient.post<VideoDto>("http://localhost:8080/api/videos/"+videoId+"/dislike",null) ;
   }
-  searchVideos(query: string): Observable<VideoDto[]> {
-    return this.httpClient.get<VideoDto[]>(`${this.baseUrl}?query=${query}`);
+  searchVideos(query: string): Observable<any[]> {
+    let params = new HttpParams().set('title', encodeURIComponent(query));
+    return this.httpClient.get<any[]>(`${this.baseUrl}/search`, { params: params });
   }
+
 }

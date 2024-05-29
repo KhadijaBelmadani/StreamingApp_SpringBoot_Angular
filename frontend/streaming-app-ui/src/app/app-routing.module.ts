@@ -13,6 +13,7 @@ import {CallbackComponent} from "./callback/callback.component";
 import {HeaderComponent} from "./header/header.component";
 import {SearchComponent} from "./search/search.component";
 import {LiveRoomComponent} from "./live-room/live-room.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
   {
@@ -36,7 +37,10 @@ const routes: Routes = [
   {
     path:'go-live',component:LiveRoomComponent
   },
-
+  {
+    path:'goProfile' ,component:ProfileComponent
+  }
+,
   {
     path:'',component:HomeComponent,
     children:[

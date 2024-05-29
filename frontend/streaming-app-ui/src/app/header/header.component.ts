@@ -13,7 +13,6 @@ import {VideoService} from "../upload-video/video.service";
 })
 export class HeaderComponent implements OnInit {
   searchTerm: string = '';
-  searchQuery: string = '';
   videos: VideoDto[] = [];
   isAuthenticated:boolean=false;
   constructor(private oidcSecurityService: OidcSecurityService,private router:Router,private http:HttpClient,private videoService: VideoService) {
@@ -50,15 +49,11 @@ export class HeaderComponent implements OnInit {
 
 
   searchVideos() {
-    if (this.searchTerm) {
-      // Call your search service with the search term
-      this.videoService.searchVideos(this.searchTerm)
-        .subscribe(videos => {
-          // Update your component's video list with search results
-          this.videos = videos;
-        });
-    }
+    this.router.navigate(['/search'], { queryParams: { query: this.searchTerm } });
   }
 
 
+  goProfile() {
+    this.router.navigateByUrl('/goProfile');
+  }
 }

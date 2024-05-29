@@ -1,12 +1,15 @@
-<div class="container-fluid">
-  <div class="center-container">
+<app-sidebar ></app-sidebar>
+<div class="center-container">
+
     <form color="coll" [formGroup]="conversationFormGroup" (ngSubmit)="getOrcreateConversation()">
-      <h1 style="color: white">Create Or Join Room </h1>
+
+      <h3 style="color: white">Create Or Join Room </h3><br><br>
       <mat-form-field>
-        <mat-label style="color: #313a3f">Conversation Name</mat-label>
+        <mat-label style="color: #313a3f">Room Name</mat-label>
         <input type="text" matInput placeholder="abcd" formControlName="name">
       </mat-form-field>&nbsp;
       <button mat-raised-button color="warn" type="submit" [disabled]="!conversationFormGroup.valid" title="Get Or Create Conversation">Get Or Create Room</button>
+
     </form>
   </div>
 
@@ -18,4 +21,3 @@
   </div>
 
 
-</div>

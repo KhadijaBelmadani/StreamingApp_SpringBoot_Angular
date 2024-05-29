@@ -1,3 +1,5 @@
+
+
 <div fxLayout="row">
   <div fxFlex="65%" class="video-detail">
     <div fxLayout="column" fxLayoutGap="8px">
@@ -25,7 +27,7 @@
       </div>
       <mat-divider></mat-divider>
       <mat-card-header>
-        <mat-card-title>{{ videoDescription }}</mat-card-title><br>
+        <mat-card-title>{{ videoDescription }} &nbsp;</mat-card-title><br>
         <div fxLayout="row" fxLayoutGap="10px">
           <button *ngIf="showSubscribeButton" class="subscribe-button" mat-raised-button color="warn" (click)="subscribeToUser()">
             Follow

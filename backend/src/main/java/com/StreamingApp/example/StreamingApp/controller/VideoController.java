@@ -4,10 +4,12 @@ import com.StreamingApp.example.StreamingApp.dto.CommentDto;
 import com.StreamingApp.example.StreamingApp.dto.UploadVideoResponse;
 import com.StreamingApp.example.StreamingApp.dto.VideoDto;
 import com.StreamingApp.example.StreamingApp.model.User;
+import com.StreamingApp.example.StreamingApp.model.Video;
 import com.StreamingApp.example.StreamingApp.service.UserService;
 import com.StreamingApp.example.StreamingApp.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -106,9 +108,12 @@ public class VideoController {
         return videoService.getAllVideosByChannel(userId);
     }
 
+
+
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
-    public List<VideoDto> searchVideos(@RequestParam(name = "query") String query) {
-        return videoService.searchVideos(query);
+    public ResponseEntity<List<Video>> searchVideos(@RequestParam("title") String title) {
+        List<Video> videos = videoService.searchVideosByTitle(title);
+        return new ResponseEntity<>(videos, HttpStatus.OK);
     }
 }

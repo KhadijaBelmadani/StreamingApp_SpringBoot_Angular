@@ -11,6 +11,7 @@ import com.StreamingApp.example.StreamingApp.model.Video;
 import com.StreamingApp.example.StreamingApp.repository.CommentRepository;
 import com.StreamingApp.example.StreamingApp.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class VideoService {
     private final S3Service s3service;
+    @Autowired
     private final VideoRepository videoRepository;
     private final CommentRepository commentRepository;
     private final UserService userService;
@@ -211,18 +213,11 @@ public class VideoService {
         videoRepository.save(video);
     }
 
-    public List<VideoDto> findByTag(String query) {
-        List<Video> videos=videoRepository.findByTagsContainingIgnoreCase(query);
-        return videos.stream()
-                .map(this::MapToVideoDto)
-                .collect(Collectors.toList());
-    }
 
-    public List<VideoDto> searchVideos(String query) {
 
-            List<Video> videos = videoRepository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(query, query);
-            return videos.stream()
-                    .map(this::MapToVideoDto)
-                    .collect(Collectors.toList());
-        }
+    public List<Video> searchVideosByTitle(String title) {
+
+            return videoRepository.findByTitleContainingIgnoreCase(title);
+
     }
+}

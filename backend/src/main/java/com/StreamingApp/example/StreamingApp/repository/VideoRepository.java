@@ -12,7 +12,5 @@ public interface VideoRepository extends MongoRepository<Video,String> {
 
     List<Video> findByIdIn(Set<String> likedVideos);
 
-    List<Video> findByTagsContainingIgnoreCase(String query);
-
-    List<Video> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String query, String query1);
+    List<Video> findByTitleContainingIgnoreCase(String title);
 }

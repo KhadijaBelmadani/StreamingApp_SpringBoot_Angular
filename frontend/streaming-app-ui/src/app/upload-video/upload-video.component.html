@@ -1,3 +1,7 @@
+
+  <app-sidebar ></app-sidebar>
+
+
 <div class="center b" >
   <ngx-file-drop style="width: 50%" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)">
  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
@@ -22,4 +26,4 @@
   <button  class="btn btn text-white bg_red rounded-0 border-0" type="button" (click)="uploadVideo()" *ngIf="fileUploaded">Upload Video</button>
 </div>
 
-<app-footer></app-footer>
+<!--<app-footer></app-footer>-->
