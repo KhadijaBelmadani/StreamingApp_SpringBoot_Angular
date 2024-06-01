@@ -1,4 +1,6 @@
 export interface VideoDto {
+  // isSubscribed: boolean;
+  // followerCount: number;
   id:string;
   description:string;
   title:string;

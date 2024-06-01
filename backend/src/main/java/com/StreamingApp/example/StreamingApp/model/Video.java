@@ -41,8 +41,15 @@ public class Video {
 
    private Category categoryId;
 
+    private AtomicInteger followerCount = new AtomicInteger(0);  // New field for follower count
 
+    public void incrementFollowerCount() {
+        followerCount.incrementAndGet();
+    }
 
+    public void decrementFollowerCount() {
+        followerCount.decrementAndGet();
+    }
     public void incrementLikes(){
         likes.incrementAndGet();
     }

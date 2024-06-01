@@ -9,7 +9,7 @@ import java.util.Set;
 public interface VideoRepository extends MongoRepository<Video,String> {
     List<Video> findByUserId(String userId);
     List<Video> findByTagsIn(List<String> tags);
-
+    List<Video> findAll();
     List<Video> findByIdIn(Set<String> likedVideos);
 
     List<Video> findByTitleContainingIgnoreCase(String title);

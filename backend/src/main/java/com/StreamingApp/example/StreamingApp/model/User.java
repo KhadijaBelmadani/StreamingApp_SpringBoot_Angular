@@ -6,10 +6,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
 @AllArgsConstructor
@@ -31,10 +30,7 @@ public class User {
     private Set<String> likedVideos = ConcurrentHashMap.newKeySet();
     private Set<String> disLikedVideos = ConcurrentHashMap.newKeySet();
 
-    public void addToLikedVideos(String videoId) {
-
-        likedVideos.add(videoId);
-    }
+    public void addToLikedVideos(String videoId) {likedVideos.add(videoId);}
 
     public void removeFromLikedVideos(String videoId) {likedVideos.remove(videoId);
     }
@@ -59,6 +55,9 @@ public class User {
         subscribers.add(userId);
     }
 
+    public void addVideoToLikedVideos(String videoId) {
+        likedVideos.add(videoId);
+    }
 
     public void addVideoToHistory(String videoId) {
         videoHistory.add(videoId);
@@ -71,5 +70,7 @@ public class User {
     public void removeFromSubscribers(String userId) {
         subscribers.remove(userId);
     }
+
+
 }
 

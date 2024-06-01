@@ -1,4 +1,4 @@
-<app-sidebar ></app-sidebar>
+<app-sidebar></app-sidebar>
 <div style="height: 60px"></div>
 <div class="text-white" fxLayout="row wrap">
   <div fxFlex="20%"></div>
@@ -6,30 +6,25 @@
     <br>
     <div class="mat-title" style="font-size: x-large"> Add video metaData</div> <br>
     <form [formGroup]="saveVideoDetailsForm">
-
-
-    <mat-form-field color="warn" appearance="fill">
-      <mat-label>Title</mat-label>
-      <input matInput [formControl]="title" required>
-    </mat-form-field>
+      <mat-form-field color="warn" appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput [formControl]="title" required>
+      </mat-form-field>
       <mat-form-field color="warn" appearance="fill">
         <mat-label>Description</mat-label>
         <input matInput [formControl]="description" required>
       </mat-form-field>
-    <mat-form-field color="warn" appearance="fill">
-      <mat-label>Video status</mat-label>
-      <mat-select [formControl]="videoStatus">
-        <mat-option value="PUBLIC">PUBLIC</mat-option>
-        <mat-option value="PRIVATE">PRIVATE</mat-option>
-      </mat-select>
-    </mat-form-field >
+      <mat-form-field color="warn" appearance="fill">
+        <mat-label>Video status</mat-label>
+        <mat-select [formControl]="videoStatus">
+          <mat-option value="PUBLIC">PUBLIC</mat-option>
+          <mat-option value="PRIVATE">PRIVATE</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field color="warn" class="example-chip-list">
-        <mat-label>tags</mat-label>
-        <mat-chip-grid #chipGrid aria-label="Enter fruits">
-          <mat-chip-row *ngFor="let tag of tags"
-                        (removed)="remove(tag)">{{tag}}
-
-
+        <mat-label>Tags</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter tags">
+          <mat-chip-row *ngFor="let tag of tags" (removed)="remove(tag)">{{tag}}
             <button matChipRemove [attr.aria-label]="'remove ' + tag">
               <mat-icon>cancel</mat-icon>
             </button>
@@ -42,34 +37,33 @@
         </mat-chip-grid>
       </mat-form-field>
 
+<!--      &lt;!&ndash; Hidden Form Controls for isSubscribed and followerCount &ndash;&gt;-->
+<!--      <input type="hidden" formControlName="isSubscribed">-->
+<!--      <input type="hidden" formControlName="followerCount">-->
 
       <div>
         <label for="inputGroupFile01">Upload Thumbnail:
           <div class="custom-file">
             <input type="file" class="custom-file-input" id="inputGroupFile01"
-                   aria-describedby="inputGroupFileAddon01" (change)="onFileSelected($event)" >
+                   aria-describedby="inputGroupFileAddon01" (change)="onFileSelected($event)">
           </div>
           <br/>
           <div *ngIf="fileSelected">
-            <div >
-              <p>Selected File: {{selectedFileName}} </p>
+            <div>
+              <p>Selected File: {{selectedFileName}}</p>
             </div>
             <div *ngIf="fileSelected">
-              <button mat-raised-button color="warn" type="submit" (click)="onUpload()" >Upload</button>
+              <button mat-raised-button color="warn" type="button" (click)="onUpload()">Upload</button>
             </div>
           </div>
-
         </label>
       </div>
-<br>
-      <button type="submit" mat-raised-button color="warn" (click)="saveVideo()" >Save</button>
+      <br>
+      <button type="submit" mat-raised-button color="warn" (click)="saveVideo()">Save</button>
     </form>
   </div>
-  <div fxFlex="40%" >
-
-<app-video-player [videoUrl]="videoUrl"></app-video-player>  </div>
-
+  <div fxFlex="40%">
+    <app-video-player [videoUrl]="videoUrl"></app-video-player>
+  </div>
 </div>
-<!--<app-footer></app-footer>-->
 <br><br>
-

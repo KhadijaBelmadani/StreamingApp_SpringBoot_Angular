@@ -1,1 +1,31 @@
-<p>recommendations works!</p>
+<!--<div>-->
+<!--  <h2>Suggested Videos</h2>-->
+<!--  <div *ngFor="let video of suggestedVideos">-->
+<!--    <h3>{{ video.title }}</h3>-->
+<!--    <p>{{ video.description }}</p>-->
+<!--    <a [href]="video.url" target="_blank">Watch Video</a>-->
+<!--    <p>Tags: {{ video.tags.join(', ') }}</p>-->
+<!--&lt;!&ndash;    <p>Likes: {{ video.likes }} | Dislikes: {{ video.dislikes }}</p>&ndash;&gt;-->
+<!--  </div>-->
+<!--</div>-->
+<!--<app-liked-videos></app-liked-videos>-->
+<!--<app-history></app-history>-->
+<div fxLayout="row wrap" fxLayoutAlign="space-between center">
+  <h3>Recommended Videos For You</h3>
+</div><br><br>
+<div fxLayout="row wrap" fxLayoutGap="12px grid">
+  <div *ngFor="let video of likedVideos">
+    <app-video-card [video]="video"></app-video-card>
+  </div>
+</div>
+
+<!-- video-history.component.html -->
+<div fxLayout="row wrap" fxLayoutAlign="space-between center">
+<!--  <h3>Video History</h3>-->
+</div><br><br>
+<div fxLayout="row wrap" fxLayoutGap="12px grid">
+  <div *ngFor="let video of videoHistory">
+    <app-video-card [video]="video"></app-video-card>
+  </div>
+</div>
+

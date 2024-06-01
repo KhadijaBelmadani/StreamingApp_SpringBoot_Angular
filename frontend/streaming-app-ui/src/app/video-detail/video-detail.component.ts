@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {VideoService} from "../upload-video/video.service";
 import {UserService} from "../user.service";
+import {VideoDto} from "../video-dto";
 
 
 @Component({
@@ -16,12 +17,12 @@ export class VideoDetailComponent implements OnInit{
   videoTitle!: string;
   videoDescription!: string;
   videoTags: Array<string>=[];
-  likeCount: number=0;
-  dislikeCount: number=0;
+  likeCount!: number;
+  dislikeCount!: number;
   viewCount: number=0;
   showSubscribeButton:boolean=true;
   showUnsubscribeButton:boolean=false;
-
+  // followerCount: number = 0;
   uploaderFullName!: string;
 
 
@@ -51,19 +52,20 @@ export class VideoDetailComponent implements OnInit{
 
   ngOnInit(): void {
     this.userService.registerUser();
+    // this.loadVideoDetails();
   }
 
   likeVideo() {
-    this.videoService.likeVideo(this.videoId).subscribe(data=>{
-      this.likeCount=data.likeCount;
-      this.dislikeCount=data.dislikeCount;
+    this.videoService.likeVideo(this.videoId).subscribe((data: VideoDto) => {
+      this.likeCount = data.likeCount;
+      this.dislikeCount = data.dislikeCount;
     });
   }
 
-  disLike() {
-    this.videoService.disLikeVideo(this.videoId).subscribe(data=>{
-      this.likeCount=data.likeCount;
-      this.dislikeCount=data.dislikeCount;
+  dislikeVideo() {
+    this.videoService.dislikeVideo(this.videoId).subscribe((data: VideoDto) => {
+      this.likeCount = data.likeCount;
+      this.dislikeCount = data.dislikeCount;
     });
   }
 
@@ -77,11 +79,39 @@ export class VideoDetailComponent implements OnInit{
   }
 
   unsubscribeToUser() {
-    let userId=this.userService.getUserId();
+    let userId = this.userService.getUserId();
     this.userService.unsubscribeToUser(userId)
-      .subscribe(data=>{
-        this.showUnsubscribeButton=false;
-        this.showSubscribeButton=true;
+      .subscribe(data => {
+        this.showUnsubscribeButton = false;
+        this.showSubscribeButton = true;
       });
-  }
-}
+    // }
+
+    // private loadVideoDetails() {
+    //   this.videoService.getVideoDetails(this.videoId).subscribe((data: VideoDto) => {
+    //     this.likeCount = data.likeCount;
+    //     this.dislikeCount = data.dislikeCount;
+    //     // this.followerCount = data.followerCount;
+    //     // this.showSubscribeButton = !data.isSubscribed;
+    //     // this.showUnsubscribeButton = data.isSubscribed;
+    //   });
+    // }
+
+    // subscribeToUser() {
+    //   let userId = this.userService.getUserId();
+    //   this.userService.subscribeToUser(userId).subscribe(() => {
+    //     this.showUnsubscribeButton = true;
+    //     this.showSubscribeButton = false;
+    //     this.followerCount++;
+    //   });
+    // }
+    //
+    // unsubscribeToUser() {
+    //   let userId = this.userService.getUserId();
+    //   this.userService.unsubscribeFromUser(userId).subscribe(() => {
+    //     this.showUnsubscribeButton = false;
+    //     this.showSubscribeButton = true;
+    //     this.followerCount--;
+    //   });
+    // }
+  }}

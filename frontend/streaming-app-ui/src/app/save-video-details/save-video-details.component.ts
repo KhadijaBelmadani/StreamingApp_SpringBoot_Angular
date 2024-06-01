@@ -30,7 +30,9 @@ export class SaveVideoDetailsComponent {
   fileSelected=false;
   videoUrl!:string;
   thumbnailUrl!:string;
-  userId!:string
+  userId!:string;
+    isSubscribed!:boolean;
+   followerCount!:number;
 
   announcer = inject(LiveAnnouncer);
 
@@ -112,6 +114,9 @@ export class SaveVideoDetailsComponent {
       "dislikeCount":0,
       "viewCount":0,
       "userId":this.userId,
+      // "isSubscribed":this.isSubscribed,
+      // "followerCount":this.followerCount
+
     }
 
     this.videoService.saveVideo(videoMetaData).subscribe(data=>{

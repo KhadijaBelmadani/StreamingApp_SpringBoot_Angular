@@ -78,6 +78,7 @@ import { ProfileComponent } from './profile/profile.component';
     CaraouselComponent,
     ProfileComponent,
 
+
     //I keep the new line
   ],
   imports: [

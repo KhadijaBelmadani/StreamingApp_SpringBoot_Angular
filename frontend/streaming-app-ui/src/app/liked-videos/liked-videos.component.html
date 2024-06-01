@@ -1,10 +1,9 @@
-<!--<div fxLayout="row wrap" fxLayoutAlign="space-between center">-->
-<!--  <h3>Liked Videos</h3>-->
-<!--  <button  mat-stroked-button color="warn">View All</button>-->
-<!--</div>-->
-
-<!--<div fxLayout="row wrap" fxLayoutGap="12px grid">-->
-<!--  <div *ngFor="let num of [1,2,3] ">-->
-<!--    <app-video-card></app-video-card>-->
-<!--  </div>-->
-<!--</div>-->
+<!-- video-history.component.html -->
+<div fxLayout="row wrap" fxLayoutAlign="space-between center">
+  <h3>Liked Videos</h3>
+</div><br><br>
+<div fxLayout="row wrap" fxLayoutGap="12px grid">
+  <div *ngFor="let video of likedVideos">
+    <app-video-card [video]="video"></app-video-card>
+  </div>
+</div>

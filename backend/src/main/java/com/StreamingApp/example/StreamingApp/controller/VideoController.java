@@ -116,4 +116,23 @@ public class VideoController {
         List<Video> videos = videoService.searchVideosByTitle(title);
         return new ResponseEntity<>(videos, HttpStatus.OK);
     }
+
+//    @PostMapping("/{videoId}/follow")
+//    @ResponseStatus(HttpStatus.OK)
+//    public VideoDto followVideo(@PathVariable String videoId) {
+//        return videoService.followVideo(videoId);
+//    }
+//
+//    @PostMapping("/{videoId}/unfollow")
+//    @ResponseStatus(HttpStatus.OK)
+//    public VideoDto unfollowVideo(@PathVariable String videoId) {
+//        return videoService.unfollowVideo(videoId);
+//    }
+
+
+    @PostMapping("/byIds")
+    public ResponseEntity<List<Video>> getVideosByIds(@RequestBody List<String> videoIds) {
+        List<Video> videos = videoService.getVideosByIds(videoIds);
+        return ResponseEntity.ok(videos);
+    }
 }

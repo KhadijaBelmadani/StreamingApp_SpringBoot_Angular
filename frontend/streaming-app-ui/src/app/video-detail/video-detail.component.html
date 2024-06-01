@@ -16,11 +16,11 @@
           <span class="like-dislike-section">
               <button mat-icon-button class="thumbs-up" (click)="likeVideo()">
                 <mat-icon>arrow_upwards</mat-icon>
-                {{likeCount}}
+                {{ likeCount }}
               </button>
-              <button mat-icon-button class="thumbs-down" (click)="disLike()">
+              <button mat-icon-button class="thumbs-down" (click)="dislikeVideo()">
                 <mat-icon>arrow_downward</mat-icon>
-                {{dislikeCount}}
+                {{ dislikeCount }}
               </button>
           </span>
         </div>
@@ -35,7 +35,7 @@
           <button *ngIf="showUnsubscribeButton" class="subscribe-button-clicked" mat-raised-button color="warn" (click)="unsubscribeToUser()">
             Unfollow
           </button>
-          <span class="follower-count">2000 Followers</span>
+<!--          <span class="follower-count">0 Followers</span>-->
         </div>
 
       </mat-card-header>
@@ -53,5 +53,6 @@
   </div>
   <div fxFlex="5%"></div>
   <div fxFlex="30%" class="suggestion-bar">
+    <app-recommendations></app-recommendations>
   </div>
 </div>

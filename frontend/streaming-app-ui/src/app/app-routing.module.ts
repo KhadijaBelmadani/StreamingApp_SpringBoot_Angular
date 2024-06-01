@@ -14,7 +14,6 @@ import {HeaderComponent} from "./header/header.component";
 import {SearchComponent} from "./search/search.component";
 import {LiveRoomComponent} from "./live-room/live-room.component";
 import {ProfileComponent} from "./profile/profile.component";
-
 const routes: Routes = [
   {
     path:'upload-video',component:UploadVideoComponent
@@ -40,7 +39,9 @@ const routes: Routes = [
   {
     path:'goProfile' ,component:ProfileComponent
   }
-,
+  ,
+
+
   {
     path:'',component:HomeComponent,
     children:[

@@ -32,7 +32,9 @@ export class VideoService {
   public getVideo(videoId:string):Observable<VideoDto>{
     return this.httpClient.get<VideoDto>("http://localhost:8080/api/videos/"+ videoId);
   }
-
+  getVideosByIds(videoIds: string[]): Observable<VideoDto[]> {
+    return this.httpClient.post<VideoDto[]>(`${this.baseUrl}/byIds`, videoIds);
+  }
   saveVideo(videoMetaData: VideoDto):Observable<VideoDto> {
      return this.httpClient.put<VideoDto>("http://localhost:8080/api/videos",videoMetaData);
 
@@ -42,15 +44,26 @@ export class VideoService {
     });
   }
 
-  likeVideo(videoId: string):Observable<VideoDto> {
-      return this.httpClient.post<VideoDto>("http://localhost:8080/api/videos/"+videoId+"/like",null) ;
+  likeVideo(videoId: string): Observable<VideoDto> {
+    return this.httpClient.post<VideoDto>(`${this.baseUrl}/${videoId}/like`, null);
   }
-  disLikeVideo(videoId: string):Observable<VideoDto> {
-    return this.httpClient.post<VideoDto>("http://localhost:8080/api/videos/"+videoId+"/dislike",null) ;
+
+  dislikeVideo(videoId: string): Observable<VideoDto> {
+    return this.httpClient.post<VideoDto>(`${this.baseUrl}/${videoId}/dislike`, null);
+  }
+
+  getVideoDetails(videoId: string): Observable<VideoDto> {
+    return this.httpClient.get<VideoDto>(`${this.baseUrl}/${videoId}`);
   }
   searchVideos(query: string): Observable<any[]> {
     let params = new HttpParams().set('title', encodeURIComponent(query));
     return this.httpClient.get<any[]>(`${this.baseUrl}/search`, { params: params });
   }
+
+  getLikedVideos(): Observable<string[]> {
+    return this.httpClient.get<string[]>(`${this.baseUrl}/favorite`);
+  }
+
+
 
 }

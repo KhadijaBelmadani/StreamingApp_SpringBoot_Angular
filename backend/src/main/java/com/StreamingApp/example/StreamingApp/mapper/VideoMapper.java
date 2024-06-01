@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class VideoMapper {
     public VideoDto mapToDto(Video video){
+        boolean isSubscriber = false;
         return VideoDto.builder()
                 .id(video.getId())
                 .userId(video.getUserId())
@@ -19,6 +20,8 @@ public class VideoMapper {
                 .thumbnailUrl(video.getThumbnailUrl())
                 .likeCount(video.getLikes().get())
                 .dislikeCount(video.getDisLikes().get())
+//                .followerCount(video.getFollowerCount().get())
+//                .isSubscribed(isSubscriber)
                 .build();
 
 

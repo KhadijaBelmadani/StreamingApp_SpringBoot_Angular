@@ -5,24 +5,27 @@ import com.StreamingApp.example.StreamingApp.dto.VideoDto;
 import com.StreamingApp.example.StreamingApp.model.User;
 import com.StreamingApp.example.StreamingApp.model.Video;
 import com.StreamingApp.example.StreamingApp.repository.UserRepository;
+import com.StreamingApp.example.StreamingApp.repository.VideoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.expression.ExpressionException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
+    private final VideoRepository videoRepository;
 
     public User getCurrentUser(){
        String sub= ((Jwt)(SecurityContextHolder.getContext().getAuthentication().getPrincipal())).getClaim("sub");
 
-        return   userRepository.findBySub(sub)
+        return userRepository.findBySub(sub)
               .orElseThrow(() -> new IllegalArgumentException("cannot find user with sub -" + sub));
     }
 
@@ -57,10 +60,22 @@ public class UserService {
         currentUser.addToDisLikedVideos(videoId);
         userRepository.save(currentUser);
     }
-
+    public List<String> getVideoHistory() {
+        User currentUser = getCurrentUser();
+        return currentUser.getVideoHistory().stream().collect(Collectors.toList());
+    }
     public void addVideoToHistory(String videoId) {
         User currentUser=getCurrentUser();
         currentUser.addVideoToHistory(videoId);
+        userRepository.save(currentUser);
+    }
+    public List<String> getLikedVideo() {
+        User currentUser = getCurrentUser();
+        return currentUser.getLikedVideos().stream().collect(Collectors.toList());
+    }
+    public void addToLikedVideo(String videoId) {
+        User currentUser=getCurrentUser();
+        currentUser.addVideoToLikedVideos(videoId);
         userRepository.save(currentUser);
     }
 
@@ -86,14 +101,13 @@ public class UserService {
     }
 
     public Set<String> getLikedVideos(String userId) {
-        var user=userRepository.findById(userId).orElseThrow(()->new ExpressionException("Invalid User - " + userId));
+        var user=userRepository.findBySub(userId).orElseThrow(()->new ExpressionException("Invalid User - " + userId));
+//                findById(userId).orElseThrow(()->new ExpressionException("Invalid User - " + userId));
         return user.getLikedVideos();
     }
 
     public UserInfoDto getUser(String userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ExpressionException("User not found with id: " + userId));
-
+        User user = userRepository.findBySub(userId).orElseThrow(()->new ExpressionException("Invalid User - " + userId));
         UserInfoDto userInfoDto = new UserInfoDto();
         userInfoDto.setId(user.getId());
         userInfoDto.setSub(user.getSub());
@@ -105,5 +119,21 @@ public class UserService {
 
         return userInfoDto;
     }
+
+
+
+
+
+    public List<VideoDto> getLikedVideos() {
+        User currentUser = getCurrentUser();
+        Set<String> likedVideoIds = currentUser.getLikedVideos();
+
+        return likedVideoIds.stream()
+                .map(videoId -> videoRepository.findById(videoId)
+                        .map(VideoDto::fromVideo)
+                        .orElseThrow(() -> new IllegalArgumentException("Video not found with id - " + videoId)))
+                .collect(Collectors.toList());
+    }
+
 
 }

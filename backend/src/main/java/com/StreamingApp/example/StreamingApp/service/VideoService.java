@@ -86,6 +86,7 @@ public class VideoService {
         videoDto.setDislikeCount(savedVideo.getDisLikes().get());
         videoDto.setViewCount(savedVideo.getViewCount().get());
         videoDto.setUserId(savedVideo.getUserId());
+//        videoDto.setFollowerCount(savedVideo.getFollowerCount().get());
         return videoDto;
     }
 
@@ -96,62 +97,74 @@ public class VideoService {
 
     public VideoDto likeVideo(String videoId) {
 
-        var videoById= getVideoById(videoId);
+        var videoById = getVideoById(videoId);
 
         if (userService.ifLikedVideo(videoId)) {
             videoById.decrementLikes();
             userService.removeFromLikedVideos(videoId);
-        } else if (userService.ifDisLikedVideo(videoId)) {
-            videoById.decrementDisLikes();
-            userService.removeFromDisLikedVideos(videoId);
-//            videoById.incrementLikes();
-//            userService.addToLikedVideos(videoId);
-        }else {
+        } else {
+            if (userService.ifDisLikedVideo(videoId)) {
+                videoById.decrementDisLikes();
+                userService.removeFromDisLikedVideos(videoId);
+            }
             videoById.incrementLikes();
             userService.addToLikedVideos(videoId);
         }
+
         videoRepository.save(videoById);
-        return MapToVideoDto(videoById);
+        return mapToVideoDto(videoById);
     }
 
     public VideoDto dislikeVideo(String videoId) {
-        //Get video by id
-        var videoById= getVideoById(videoId);
+        var videoById = getVideoById(videoId);
+
         if (userService.ifDisLikedVideo(videoId)) {
             videoById.decrementDisLikes();
             userService.removeFromDisLikedVideos(videoId);
-        } else if (userService.ifLikedVideo(videoId)) {
-            videoById.decrementLikes();
-            userService.removeFromLikedVideos(videoId);
-//            videoById.incrementDisLikes();
-//            userService.addToDislikedVideos(videoId);
-        }else {
+        } else {
+            if (userService.ifLikedVideo(videoId)) {
+                videoById.decrementLikes();
+                userService.removeFromLikedVideos(videoId);
+            }
             videoById.incrementDisLikes();
             userService.addToDislikedVideos(videoId);
         }
+
         videoRepository.save(videoById);
-        return MapToVideoDto(videoById);
+        return mapToVideoDto(videoById);
     }
-    private VideoDto MapToVideoDto(Video videoById) {
-        VideoDto videoDto = new VideoDto();
-        videoDto.setUrl(videoById.getUrl());
-        videoDto.setThumbnailUrl(videoById.getThumbnailUrl());
-        videoDto.setId(videoById.getId());
-        videoDto.setTitle(videoById.getTitle());
-        videoDto.setDescription(videoById.getDescription());
-        videoDto.setTags(videoById.getTags());
-        videoDto.setVideoStatus(videoById.getVideoStatus());
-        videoDto.setLikeCount(videoById.getLikes().get());
-        videoDto.setDislikeCount(videoById.getDisLikes().get());
-        videoDto.setViewCount(videoById.getViewCount().get());
-        videoDto.setUserId(videoById.getUserId());
-        return videoDto;
+    private VideoDto mapToVideoDto(Video video) {
+        User currentUser = userService.getCurrentUser();
+//        boolean isSubscribed = false;
+//        int followerCount = 0;
+//        // Check if video and userId are not null
+//        if (video != null && video.getUserId() != null) {
+//            isSubscribed = currentUser.getSubscribedToUsers().contains(video.getUserId().getId());
+//        }
+
+        return VideoDto.builder()
+                .id(video.getId())
+                .userId(video.getUserId())
+                .description(video.getDescription())
+                .title(video.getTitle())
+                .tags(video.getTags())
+                .videoStatus(video.getVideoStatus())
+                .url(video.getUrl())
+                .thumbnailUrl(video.getThumbnailUrl())
+                .likeCount(video.getLikes().get())
+                .dislikeCount(video.getDisLikes().get())
+                .viewCount(video.getViewCount().get())
+                .comments(video.getComments())
+//                .isSubscribed(isSubscribed)
+//                .followerCount(followerCount) // Potential NPE here if getUserId() is null
+                .build();
     }
 
     public List<VideoDto> getAllVideos() {
         List<Video> allVideos = videoRepository.findAll();
+        System.out.println("All videos fetched: " + allVideos);
         return allVideos.stream()
-                .map(this::MapToVideoDto)
+                .map(this::mapToVideoDto)
                 .collect(Collectors.toList());
     }
 
@@ -220,4 +233,11 @@ public class VideoService {
             return videoRepository.findByTitleContainingIgnoreCase(title);
 
     }
+
+
+
+    public List<Video> getVideosByIds(List<String> videoIds) {
+        return videoRepository.findAllById(videoIds);
+    }
+
 }

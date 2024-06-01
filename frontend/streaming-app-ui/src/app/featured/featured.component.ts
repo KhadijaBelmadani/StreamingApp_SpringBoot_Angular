@@ -11,7 +11,7 @@ import {UserService} from "../user.service";
 export class FeaturedComponent implements OnInit{
   featuredVideos:Array<VideoDto>=[];
   constructor(private videoService:VideoService,private userService:UserService) {
-    // this.userService.registerUser();
+    this.userService.registerUser();
   }
   ngOnInit(): void {
     this.videoService.getAllVideos().subscribe(response => {
