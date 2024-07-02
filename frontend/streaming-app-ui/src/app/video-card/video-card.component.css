@@ -4,10 +4,16 @@
   background-color: black;
 }
 .example-header-image{
-  background-image: url("http://material.angular.io/assets/img/examples/shiba1.jpg");
-  background-size:cover ;
+  /*background-image: url("http://material.angular.io/assets/img/examples/shiba1.jpg");*/
+  /*background-size:cover ;*/
 
 }
+.circular-image {
+  width: 40px; /* Adjust the width as needed */
+  height: 40px; /* Adjust the height as needed */
+  border-radius: 50%; /* Makes the image circular */
+}
+
 .sub-title{
   color: white;
 }

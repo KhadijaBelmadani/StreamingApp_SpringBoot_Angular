@@ -1,7 +1,7 @@
 
 
 <div fxLayout="row">
-  <div fxFlex="65%" class="video-detail">
+  <div fxFlex="85%" class="video-detail">
     <div fxLayout="column" fxLayoutGap="8px">
       <app-video-player *ngIf="videoAvailable" [videoUrl]="videoUrl"></app-video-player><br>
       <div class="mat-title"style="font-size: 20px">{{ videoTitle }}</div>
@@ -9,7 +9,7 @@
         <div fxFlex="50%">
           <span class="view-count">{{ viewCount }} Views</span>
           <span class="dot"></span>&nbsp;&nbsp;
-          <span class="video-upload-date">Apr 13, 2021</span>
+          <span class="video-upload-date">May 30, 2024</span>
         </div>
         <div fxFlex="50%" fxLayoutAlign="end">
         {{uploaderFullName}}
@@ -51,8 +51,8 @@
       <app-comments [videoId]="videoId"></app-comments>
     </div>
   </div>
-  <div fxFlex="5%"></div>
-  <div fxFlex="30%" class="suggestion-bar">
-    <app-recommendations></app-recommendations>
-  </div>
+<!--  <div fxFlex="5%"></div>-->
+<!--  <div fxFlex="30%" class="suggestion-bar">-->
+<!--    <app-recommendations></app-recommendations>-->
+<!--  </div>-->
 </div>
