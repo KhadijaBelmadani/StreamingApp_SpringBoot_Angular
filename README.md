@@ -1,3 +1,70 @@
+# Streaming App
+
+A web application for streaming content built with Spring Boot,spring security, Angular, AWS S3, and MongoDB.
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Setup and Installation](#setup-and-installation)
+- [Usage](#usage)
+- [Application](#application)
+  
+
+## Features
+
+- User authentication and authorization
+- Content uploading and streaming
+- User profiles and content management
+
+
+## Technologies Used
+
+- **Backend:** Spring Boot
+- **Frontend:** Angular
+- **Database:** MongoDB
+- **Storage:** AWS S3
+- **Authentication:** Spring Security, JWT
+
+
+
+
+## Setup and Installation
+
+### Prerequisites
+
+- Java 11 or higher
+- Node.js and npm
+- MongoDB
+- AWS account with S3 access
+
+### Backend Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/KhadijaBelmadani/StreamingApp_SpringBoot_Angular.git
+   cd StreamingApp_SpringBoot_Angular/backend
+2. Configure MongoDB in application.properties:
+   spring.data.mongodb.uri=mongodb://localhost:27017/your-database
+3. Configure AWS S3 in application.properties:
+   aws.s3.bucket-name=your-s3-bucket
+   aws.s3.access-key=your-access-key
+   aws.s3.secret-key=your-secret-key
+4. Build and run the backend:
+    ./mvnw clean install
+    ./mvnw spring-boot:run
+
+### Usage
+
+1. Open your browser and navigate to http://localhost:4200.
+2. Register a new account or log in with an existing one.
+3. Upload content and start streaming!
+
+
+
+
+
+### Application
 ![lwl](https://github.com/KhadijaBelmadani/StreamingApp_SpringBoot_Angular/assets/122830181/2b7e336c-5d78-4385-a6be-98da7120f708)
 
 <img width="925" alt="1" src="https://github.com/KhadijaBelmadani/StreamingApp_SpringBoot_Angular/assets/122830181/82d94517-8aff-4eb9-9543-2916b0fd0d70">
